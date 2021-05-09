@@ -102,6 +102,6 @@ theme: hexo-theme-material-master
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/<username>/<project>
+  repo: https://github.com/Acow337/Acow337.github.io
   # example, https://github.com/hexojs/hexojs.github.io
   branch: gh-pages
