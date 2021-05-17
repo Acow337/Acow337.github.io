@@ -377,7 +377,65 @@ public class SemaphoreDemo {
 ReadWriteLock
 
 ```java
-import java.util.HashMap;import java.util.Map;import java.util.concurrent.locks.Lock;import java.util.concurrent.locks.ReadWriteLock;import java.util.concurrent.locks.ReentrantLock;import java.util.concurrent.locks.ReentrantReadWriteLock;//独占锁（写锁） 一次只能被一个线程占用//共享锁（读锁） 多个线程可以同时占用public class ReadWriteLockDemo{    public static void main(String[] args) {        MyCacheLock myCache = new MyCacheLock();        //写入        for (int i = 1; i <= 5; i++) {            final int temp = i;            new Thread(()->{                myCache.put(temp+"",temp+"");            },String.valueOf(i)).start();        }        //读取        for (int i = 1; i <= 5; i++) {            final int temp = i;            new Thread(()->{                myCache.get(temp+"");            },String.valueOf(i)).start();        }    }}/*    加锁的 */class MyCacheLock{    private volatile Map<String,Object> map = new HashMap<>();    //读写锁:更加细粒度的控制    private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();    //存，写入的时候，只希望同时只有一个线程写    public void put(String key,Object value){        readWriteLock.writeLock().lock();        try {            System.out.println(Thread.currentThread().getName()+"写入"+key);            map.put(key,value);            System.out.println(Thread.currentThread().getName()+"写入OK");        } catch (Exception e) {            e.printStackTrace();        } finally {            readWriteLock.writeLock().unlock();        }    }    //取，读，所有人都可以读！    public void get(String key){        readWriteLock.readLock().lock();        try {            System.out.println(Thread.currentThread().getName()+"读取"+key);            Object o=map.get(key);            System.out.println(Thread.currentThread().getName()+"读取OK");        } catch (Exception e) {            e.printStackTrace();        } finally {        readWriteLock.readLock().unlock();        }    }}
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+//独占锁（写锁） 一次只能被一个线程占用
+//共享锁（读锁） 多个线程可以同时占用
+public class ReadWriteLockDemo{
+	public static void main(String[] args) {
+		MyCacheLock myCache = new MyCacheLock();
+		for (int i = 1; i <= 5; i++) {
+			final int temp = i;
+			new Thread(()->{
+				myCache.put(temp+"",temp+"");
+			}
+			,String.valueOf(i)).start();
+		}
+		for (int i = 1; i <= 5; i++) {
+			final int temp = i;
+			new Thread(()->{
+				myCache.get(temp+"");
+			}
+			,String.valueOf(i)).start();
+		}
+	}
+}
+MyCacheLock{
+	private volatile Map<String,Object> map = new HashMap<>();
+	private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+	public void put(String key,Object value){
+		readWriteLock.writeLock().lock();
+		try {
+			System.out.println(Thread.currentThread().getName()+"写入"+key);
+			map.put(key,value);
+			System.out.println(Thread.currentThread().getName()+"写入OK");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			readWriteLock.writeLock().unlock();
+		}
+	}
+	public void get(String key){
+		readWriteLock.readLock().lock();
+		try {
+			System.out.println(Thread.currentThread().getName()+"读取"+key);
+			Object o=map.get(key);
+			System.out.println(Thread.currentThread().getName()+"读取OK");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			readWriteLock.readLock().unlock();
+		}
+	}
+}
 ```
 
 
@@ -399,7 +457,25 @@ import java.util.HashMap;import java.util.Map;import java.util.concurrent.locks.
 抛出异常:
 
 ```java
-    public static void main(String[] args) {        test1();    }    public static void test1() {        //队列的大小        ArrayBlockingQueue blockingQueue = new ArrayBlockingQueue<>(3);        System.out.println(blockingQueue.add("a"));        System.out.println(blockingQueue.add("b"));        System.out.println(blockingQueue.add("c"));		//IllegalStateException:Queue full 抛出异常！        //System.out.println(blockingQueue.add("d"));                System.out.println("============");        System.out.println(blockingQueue.remove());        System.out.println(blockingQueue.remove());        System.out.println(blockingQueue.remove());		        //java.util.NoSuchElementException 抛出异常！        //System.out.println(blockingQueue.remove());            }}
+public static void main(String[] args) {
+	test1();
+}
+public static void test1() {
+	//队列的大小      
+	ArrayBlockingQueue blockingQueue = new ArrayBlockingQueue<>(3);
+	System.out.println(blockingQueue.add("a"));
+	System.out.println(blockingQueue.add("b"));
+	System.out.println(blockingQueue.add("c"));
+	//IllegalStateException:Queue full 抛出异常！        
+	System.out.println(blockingQueue.add("d"));
+	System.out.println("============");
+	System.out.println(blockingQueue.remove());
+	System.out.println(blockingQueue.remove());
+	System.out.println(blockingQueue.remove());
+	//java.util.NoSuchElementException 抛出异常！        
+	System.out.println(blockingQueue.remove());
+}
+}
 ```
 
 
@@ -427,7 +503,25 @@ put,take;
 线程池使用案例：
 
 ```java
-import java.util.concurrent.ExecutorService;import java.util.concurrent.Executors;public class Demo01 {    public static void main(String[] args) {        //ExecutorService threadPool = Executors.newSingleThreadExecutor();//单个线程        ExecutorService threadPool = Executors.newFixedThreadPool(5);//创建一个固定的线程池的大小        //ExecutorService threadPool = Executors.newCachedThreadPool();//可伸缩的        try {            for (int i = 0; i < 10; i++) {                //使用了线程池后，使用线程池来创建线程                threadPool.execute(()->{                        System.out.println(Thread.currentThread().getName()+" ok");                });            }        } catch (Exception e) {            e.printStackTrace();        } finally {            //线程池用完，程序结束，关闭线程池            threadPool.shutdown();        }    }}
+import java.util.concurrent.ExecutorService;import java.util.concurrent.Executors;
+public class Demo01 { 
+  public static void main(String[] args) {        
+  ExecutorService threadPool = Executors.newSingleThreadExecutor();//单个线程       
+  ExecutorService threadPool = Executors.newFixedThreadPool(5);//创建一个固定的线程池的大小        
+  ExecutorService threadPool = Executors.newCachedThreadPool();//可伸缩的       
+  try {           
+    for (int i = 0; i < 10; i++) {                           
+    threadPool.execute(()->{     
+      System.out.println(Thread.currentThread().getName()+" ok");       
+    });
+    }     
+  } catch (Exception e) {   
+    e.printStackTrace();   
+  } finally {            
+    threadPool.shutdown();       
+  }   
+  }    
+}
 ```
 
 
@@ -435,7 +529,33 @@ import java.util.concurrent.ExecutorService;import java.util.concurrent.Executor
 7大参数及自定义线程池：
 
 ```java
-import java.util.concurrent.*;// Executors 工具类，3大方法public class Demo01 {    public static void main(String[] args) {        ExecutorService threadPool = new ThreadPoolExecutor(                2,                5,                3,                TimeUnit.SECONDS,                new LinkedBlockingDeque<>(3),                Executors.defaultThreadFactory(),                new ThreadPoolExecutor.AbortPolicy()//银行满了，还有人进来，不处理这个人的，抛出异常             //new ThreadPoolExecutor.CallerRunsPolicy()  哪来的去哪里！！（一般让main线程去处理）         //new ThreadPoolExecutor.DiscardPolicy() //队列满了，丢掉任务，不会抛出异常！               //new ThreadPoolExecutor.DiscardOldestPolicy() 队列满了，尝试去和最早的竞争，也不会抛出异常        );        try {            for (int i = 0; i < 10; i++) {                //使用了线程池后，使用线程池来创建线程                threadPool.execute(()->{                        System.out.println(Thread.currentThread().getName()+" ok");                });            }        } catch (Exception e) {            e.printStackTrace();        } finally {            //线程池用完，程序结束，关闭线程池            threadPool.shutdown();        }    }}
+import java.util.concurrent.*;
+//Executors 工具类，3大方法
+public class Demo01 {
+	public static void main(String[] args) {
+		ExecutorService threadPool = new ThreadPoolExecutor(2,5,3,TimeUnit.SECONDS,new LinkedBlockingDeque<>(3),                Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy()//银行满了，还有人进来，不处理这个人的，抛出异常            
+		new ThreadPoolExecutor.CallerRunsPolicy()  //哪来的去哪里！！（一般让main线程去处理）    
+		new ThreadPoolExecutor.DiscardPolicy() //队列满了，丢掉任务，不会抛出异常！            
+		new ThreadPoolExecutor.DiscardOldestPolicy() //队列满了，尝试去和最早的竞争，也不会抛出异常    
+		);
+		try {
+			for (int i = 0; i < 10; i++) {
+				//使用了线程池后，使用线程池来创建线程          
+				threadPool.execute(()->{
+					System.out.println(Thread.currentThread().getName()+" ok");
+				}
+				);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			//线程池用完，程序结束，关闭线程池       
+			threadPool.shutdown();
+		}
+	}
+}
 ```
 
 
@@ -443,7 +563,32 @@ import java.util.concurrent.*;// Executors 工具类，3大方法public class De
 7大参数以及自定义线程池
 
 ```java
-import java.util.concurrent.*;// Executors 工具类，3大方法public class Demo01 {    public static void main(String[] args) { //       Executors.newSingleThreadExecutor();        ExecutorService threadPool = new ThreadPoolExecutor(                2,                5,                3,                TimeUnit.SECONDS,                new LinkedBlockingDeque<>(3),                Executors.defaultThreadFactory(), //默认的线程工厂                new ThreadPoolExecutor.AbortPolicy()//银行满了，还有人进来，不处理这个人的，抛出异常        );        try {            for (int i = 0; i < 10; i++) {                //使用了线程池后，使用线程池来创建线程                threadPool.execute(()->{                        System.out.println(Thread.currentThread().getName()+" ok");                });            }        } catch (Exception e) {            e.printStackTrace();        } finally {            //线程池用完，程序结束，关闭线程池            threadPool.shutdown();        }    }}
+import java.util.concurrent.*;
+// Executors 工具类，3大方法
+public class Demo01 {
+	public static void main(String[] args) {
+		// Executors.newSingleThreadExecutor();  
+		ExecutorService threadPool = new ThreadPoolExecutor(2,5,3,TimeUnit.SECONDS,new LinkedBlockingDeque<>(3),                Executors.defaultThreadFactory(), //默认的线程工厂
+ new ThreadPoolExecutor.AbortPolicy()//银行满了，还有人进来，不处理这个人的，抛出异常       
+		);
+		try {
+			for (int i = 0; i < 10; i++) {
+				//使用了线程池后，使用线程池来创建线程   
+				threadPool.execute(()->{
+					System.out.println(Thread.currentThread().getName()+" ok");
+				}
+				);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			//线程池用完，程序结束，关闭线程池     
+			threadPool.shutdown();
+		}
+	}
+}
 ```
 
 
@@ -465,7 +610,26 @@ import java.util.concurrent.*;// Executors 工具类，3大方法public class De
 1.Function
 
 ```java
-import java.util.concurrent.*;import java.util.function.Function;// Executors 工具类，3大方法/* Function 函数型接口，有一个输入参数，有一个输出 只要是 函数型接口 可以 用 Lambda表达式简化 */public class Demo01 {    public static void main(String[] args) {    //    Function function = new Function<String,String>(){    //        @Override    //        public String apply(String str){    //            return str;          //        }    //    };                                Function function = (str)->{return str;};        System.out.println(function.apply("sad"));            }}
+import java.util.concurrent.*;
+import java.util.function.Function;
+// Executors 工具类，3大方法
+/* Function 函数型接口，有一个输入参数，有一个输出 只要是 函数型接口 可以 用 Lambda表达式简化 */
+public class Demo01 {
+	public static void main(String[] args) {
+		Function function = new Function<String,String>(){
+			@Override     
+			public String apply(String str){
+				return str;
+			}
+		}
+	  ;
+		Function function = (str)->{
+			return str;
+		}
+		;
+		System.out.println(function.apply("sad"));
+	}
+}
 ```
 
 
@@ -475,7 +639,25 @@ import java.util.concurrent.*;import java.util.function.Function;// Executors �
 
 
 ```java
-import java.util.function.Predicate;/*    断定型接口，有一个输入参数，返回值只能是布尔值 */public class Demo2 {    public static void main(String[] args) {        //判断字符串是否为空        /*Predicate<String> predicate = new Predicate<String>() {            @Override            public boolean test(String str) {                return str.isEmpty();            }        };          */        Predicate<String> predicate = (str)->{return str.isEmpty();};        System.out.println(predicate.test(""));    }}
+import java.util.function.Predicate;
+/*    断定型接口，有一个输入参数，返回值只能是布尔值 */
+public class Demo2 {
+	public static void main(String[] args) {
+		//判断字符串是否为空  
+		Predicate<String> predicate = new Predicate<String>() {
+			@Override            
+      public Boolean test(String str) {
+				return str.isEmpty();
+			}
+		}
+		;
+		Predicate<String> predicate = (str)->{
+			return str.isEmpty();
+		}
+		;
+		System.out.println(predicate.test(""));
+	}
+}
 ```
 
 

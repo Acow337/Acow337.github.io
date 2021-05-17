@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.6 -->
+    <script>
+        window.materialVersion = "1.5.6"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0',
+            '1.5.2',
+            '1.5.5'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://.disqus.com"/>
+
+
+
+
+
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            爬虫入门笔记 | 
+        
+        Acow337的个人博客
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="没有任何描述">
+    <meta name="keywords" content="">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Acow337的个人博客">
+    <meta name="msapplication-starturl" content="http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Acow337的个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="爬虫入门笔记 | Acow337的个人博客">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="没有任何描述">
+    
+
+    
+        <meta property="article:published_time" content="Sun May 09 2021 17:03:58 GMT+0800">
+        <meta property="article:modified_time" content="Sun May 09 2021 17:04:56 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html",
+    "headline": "爬虫入门笔记",
+    "datePublished": "Sun May 09 2021 17:03:58 GMT+0800",
+    "dateModified": "Sun May 09 2021 17:04:56 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Acow337",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Acow337的个人博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "没有任何描述",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+
+    <!-- Custom Head -->
+    
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span id="MD-burger-id" class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%88%AC%E8%99%AB%E5%88%9D%E6%9C%9F%EF%BC%88%E7%AC%AC%E4%B8%80%E5%A4%A9%EF%BC%89"><span class="post-toc-number">1.</span> <span class="post-toc-text">爬虫初期（第一天）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%8C%E5%A4%A9"><span class="post-toc-number">2.</span> <span class="post-toc-text">第二天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%89%E5%A4%A9"><span class="post-toc-number">3.</span> <span class="post-toc-text">第三天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E5%9B%9B%E5%A4%A9"><span class="post-toc-number">4.</span> <span class="post-toc-text">第四天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E4%BA%94%E5%A4%A9-%E5%BC%82%E6%AD%A5%E7%88%AC%E8%99%AB"><span class="post-toc-number">5.</span> <span class="post-toc-text">第五天(异步爬虫)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E5%85%AD%E5%A4%A9"><span class="post-toc-number">6.</span> <span class="post-toc-text">第六天</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AC%AC%E4%B8%83%E5%A4%A9%EF%BC%88scrapy%EF%BC%89"><span class="post-toc-number">7.</span> <span class="post-toc-text">第七天（scrapy）</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                爬虫入门笔记
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Acow337</strong>
+        <span>5月 09, 2021</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <h3 id="爬虫初期（第一天）"><a href="#爬虫初期（第一天）" class="headerlink" title="爬虫初期（第一天）"></a>爬虫初期（第一天）</h3><p>第一次爬虫：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&quot;https://www.sogou.com/&quot;</span></span><br><span class="line">    response = requests.get(url=url)</span><br><span class="line">    page_text = response.text</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(page_text)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./sogou.html&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        fp.write(page_text)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;结束&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>第二次爬虫;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;https://www.sogou.com/web&#x27;</span></span><br><span class="line">    kw = <span class="built_in">input</span>(<span class="string">&#x27;enter a word:&#x27;</span>)</span><br><span class="line">    param = &#123;</span><br><span class="line">        <span class="string">&#x27;query&#x27;</span>: kw</span><br><span class="line">    &#125;</span><br><span class="line">    response = requests.get(url=url, params=param)</span><br><span class="line">    page_text = response.text</span><br><span class="line">    fileName = kw + <span class="string">&#x27;.html&#x27;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fileName, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        fp.write(page_text)</span><br><span class="line">    <span class="built_in">print</span>(fileName, <span class="string">&#x27;保存成功&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>UA:请求载体的身份标识 （UA伪装）</p>
+<p>(百度翻译)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    post_url = <span class="string">&#x27;https://fanyi.baidu.com/sug&#x27;</span></span><br><span class="line">    <span class="comment"># 进行UA伪装</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># post请求参数的处理(与get请求一致)</span></span><br><span class="line">    word = <span class="built_in">input</span>(<span class="string">&#x27;enter a word:&#x27;</span>)</span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;kw&#x27;</span>: word</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 请求发送</span></span><br><span class="line">    response = requests.post(url=post_url, data=data, headers=headers)</span><br><span class="line">    <span class="comment"># 获取响应数据，json()方法返回的是obj(如果确认响应数据时json类型的，才可以使用json())</span></span><br><span class="line">    dic_obj = response.json()</span><br><span class="line">    <span class="built_in">print</span>(dic_obj)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 持久化存储</span></span><br><span class="line">    fileName = word + <span class="string">&#x27;.json&#x27;</span></span><br><span class="line">    fp = <span class="built_in">open</span>(fileName, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    json.dump(dic_obj, fp=fp, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;over!!!&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>(豆瓣电影)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;https://movie.douban.com/j/search_subjects&#x27;</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    param = &#123;</span><br><span class="line">        <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;movie&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;tag&#x27;</span>: <span class="string">&#x27;热门&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;sort&#x27;</span>: <span class="string">&#x27;recommend&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;page_limit&#x27;</span>: <span class="string">&#x27;20&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;page_start&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    response = requests.get(url=url, params=param, headers=headers)</span><br><span class="line"></span><br><span class="line">    list_data = response.json()</span><br><span class="line"></span><br><span class="line">    fp = <span class="built_in">open</span>(<span class="string">&#x27;./douban.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    json.dump(list_data, fp=fp, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;over!!!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>（KFC）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;http://www.kfc.com.cn/kfccda/ashx/GetStoreList.ashx?op=cname&#x27;</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    param = &#123;</span><br><span class="line">        <span class="string">&#x27;cname&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;pid&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;keyword&#x27;</span>: <span class="string">&#x27;南京&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;pageIndex&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">&#x27;pageSize&#x27;</span>: <span class="number">10</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    response = requests.get(url=url, params=param, headers=headers)</span><br><span class="line"></span><br><span class="line">    list_data = response.json()</span><br><span class="line"></span><br><span class="line">    fp = <span class="built_in">open</span>(<span class="string">&#x27;./kfc.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    json.dump(list_data, fp=fp, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;over!!!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>药监总局</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;http://scxk.nmpa.gov.cn:81/xk/itownet/portalAction.do?method=getXkzsList&#x27;</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;on&#x27;</span>: <span class="string">&#x27; true&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;page&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;pageSize&#x27;</span>: <span class="string">&#x27;15&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;productName&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;conditionType&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;applyname&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;applysn&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    json_ids = requests.post(url=url, headers=headers, data=data).json()</span><br><span class="line"></span><br><span class="line">    id_list = []  <span class="comment"># 储存企业的ID</span></span><br><span class="line">    all_data_list = []  <span class="comment"># 存储所有的企业详情数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> dic <span class="keyword">in</span> json_ids[<span class="string">&#x27;list&#x27;</span>]:</span><br><span class="line">        id_list.append(dic[<span class="string">&#x27;ID&#x27;</span>])</span><br><span class="line">    <span class="built_in">print</span>(id_list)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取企业详情数据</span></span><br><span class="line">    post_url = <span class="string">&#x27;http://scxk.nmpa.gov.cn:81/xk/itownet/portalAction.do?method=getXkzsById&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">id</span> <span class="keyword">in</span> id_list:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;id&#x27;</span>: <span class="built_in">id</span></span><br><span class="line">        &#125;</span><br><span class="line">        detail_json = requests.post(url=post_url, headers=headers, data=data).json()</span><br><span class="line">        <span class="built_in">print</span>(detail_json)</span><br><span class="line">        all_data_list.append(detail_json)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 持久化存储</span></span><br><span class="line">    fp = <span class="built_in">open</span>(<span class="string">&#x27;./allDate.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    json.dump(all_data_list, fp=fp, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;over!!!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多页查询</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;http://scxk.nmpa.gov.cn:81/xk/itownet/portalAction.do?method=getXkzsList&#x27;</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    id_list = []  <span class="comment"># 储存企业的ID</span></span><br><span class="line">    all_data_list = []  <span class="comment"># 存储所有的企业详情数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">        page = <span class="built_in">str</span>(page)</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;on&#x27;</span>: <span class="string">&#x27; true&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;page&#x27;</span>: page ,</span><br><span class="line">            <span class="string">&#x27;pageSize&#x27;</span>: <span class="string">&#x27;15&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;productName&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;conditionType&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;applyname&#x27;</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;applysn&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        json_ids = requests.post(url=url, headers=headers, data=data).json()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> dic <span class="keyword">in</span> json_ids[<span class="string">&#x27;list&#x27;</span>]:</span><br><span class="line">            id_list.append(dic[<span class="string">&#x27;ID&#x27;</span>])</span><br><span class="line">            <span class="built_in">print</span>(id_list)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取企业详情数据</span></span><br><span class="line">    post_url = <span class="string">&#x27;http://scxk.nmpa.gov.cn:81/xk/itownet/portalAction.do?method=getXkzsById&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">id</span> <span class="keyword">in</span> id_list:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;id&#x27;</span>: <span class="built_in">id</span></span><br><span class="line">        &#125;</span><br><span class="line">        detail_json = requests.post(url=post_url, headers=headers, data=data).json()</span><br><span class="line">        <span class="built_in">print</span>(detail_json)</span><br><span class="line">        all_data_list.append(detail_json)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 持久化存储</span></span><br><span class="line">    fp = <span class="built_in">open</span>(<span class="string">&#x27;./allDate.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    json.dump(all_data_list, fp=fp, ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;over!!!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    url = <span class="string">&#x27;https://pic.qiushibaike.com/system/pictures/12424/124241423/medium/B5KYZ8MOZWQOCMUC.jpg&#x27;</span></span><br><span class="line">    img_data = requests.get(url=url).content</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./qiutu.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">        fp.write(img_data)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>爬取图片（re）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport reimport osif __name__ == <span class="string">&quot;__main__&quot;</span>:    <span class="comment"># 创建一个文件夹，保存所有图片    if not os.path.exists(&#x27;./qiutuLibs&#x27;):        os.mkdir(&#x27;./qiutuLibs&#x27;)    url = &#x27;https://www.qiushibaike.com/imgrank/&#x27;    headers = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;    &#125;    page_text = requests.get(url=url, headers=headers).text    ex = &#x27;&lt;div class=&quot;thumb&quot;&gt;.*?&lt;img src=&quot;(.*?)&quot; alt.*?&gt;&#x27;    img_src_list = re.findall(ex, page_text, re.S)    for src in img_src_list:        src = &#x27;https:&#x27; + src        img_data = requests.get(url=src, headers=headers).content        img_name = src.split(&#x27;/&#x27;)[-1]        imgPath = &#x27;./qiutuLibs/&#x27; + img_name        with open(imgPath, &#x27;wb&#x27;) as fp:            fp.write(img_data)            print(img_name, &#x27;下载成功!!!&#x27;)           </span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>分页查询</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport reimport osif __name__ == <span class="string">&quot;__main__&quot;</span>:    <span class="comment"># 创建一个文件夹，保存所有图片    if not os.path.exists(&#x27;./qiutuLibs&#x27;):        os.mkdir(&#x27;./qiutuLibs&#x27;)    url = &#x27;https://www.qiushibaike.com/imgrank/page/%d/&#x27;    pageNum = 1    headers = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;    &#125;    for pageNum in range(1, 36):        new_url = format(url % pageNum)        page_text = requests.get(url=url, headers=headers).text        ex = &#x27;&lt;div class=&quot;thumb&quot;&gt;.*?&lt;img src=&quot;(.*?)&quot; alt.*?&gt;&#x27;        img_src_list = re.findall(ex, page_text, re.S)            for src in img_src_list:            src = &#x27;https:&#x27; + src            img_data = requests.get(url=src, headers=headers).content            img_name = src.split(&#x27;/&#x27;)[-1]            imgPath = &#x27;./qiutuLibs/&#x27; + img_name            with open(imgPath, &#x27;wb&#x27;) as fp:                fp.write(img_data)                print(img_name, &#x27;下载成功!!!&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>（出错？？？？？）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsfrom bs4 <span class="keyword">import</span> BeautifulSoupif __name__ == <span class="string">&quot;__main__&quot;</span>:    headers = &#123;        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36 Edg/89.0.774.77&#x27;</span>    &#125;    url = <span class="string">&#x27;https://www.shicimingju.com/book/sanguoyanyi.html&#x27;</span>    page_text = requests.get(url=url, headers=headers).text    soup = BeautifulSoup(page_text, <span class="string">&#x27;lxml&#x27;</span>)    li_list = soup.select(<span class="string">&#x27;.book-mulu &gt; ul &gt; li&#x27;</span>)    fp = <span class="built_in">open</span>(<span class="string">&#x27;./sanguo.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)    <span class="keyword">for</span> li <span class="keyword">in</span> li_list:        title = li.a.string        detail_url = <span class="string">&#x27;http://www/shicimingju.com&#x27;</span> + li.a[<span class="string">&#x27;href&#x27;</span>]        <span class="comment"># 对详情页发起请求,解析出章节内容        detail_page_text = requests.get(url=detail_url, headers=headers).text        detail_soup = BeautifulSoup(detail_page_text)        div_tag = detail_soup.find(&#x27;div&#x27;, class_=&#x27;chapter_content&#x27;)        # 解析到了章节的内容        # print(div_tag)        content = div_tag.text        fp.write(title + &#x27;:&#x27; + content + &#x27;\n&#x27;)        print(title, &quot;爬取成功！！！&quot;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>xpath爬取全国城市名称</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsfrom lxml <span class="keyword">import</span> etreeif __name__ == <span class="string">&#x27;__main__&#x27;</span>:    headers = &#123;        <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span>    &#125;    url = <span class="string">&#x27;https://www.aqistudy.cn/historydata/&#x27;</span>    page_text = requests.get(url=url, headers=headers).text    tree = etree.HTML(page_text)    hot_li_list = tree.xpath(<span class="string">&#x27;//div[@class=&quot;bottom&quot;]/ul/li&#x27;</span>)    all_city_names = []    <span class="keyword">for</span> li <span class="keyword">in</span> hot_li_list:        hot_city_name = li.xpath(<span class="string">&#x27;./a/text()&#x27;</span>)[<span class="number">0</span>]        all_city_names.append(hot_city_name)    <span class="built_in">print</span>(all_city_names)    city_names_list = tree.xpath(<span class="string">&#x27;//div[@class=&quot;bottom&quot;]/ul/div[2]/li&#x27;</span>)    <span class="keyword">for</span> li <span class="keyword">in</span> city_names_list:        city_name = li.xpath(<span class="string">&#x27;./a/text()&#x27;</span>)[<span class="number">0</span>]        all_city_names.append(city_name)    <span class="built_in">print</span>(all_city_names)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="第三天"><a href="#第三天" class="headerlink" title="第三天"></a>第三天</h3><p>验证码识别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport fateadm_apifrom lxml <span class="keyword">import</span> etreedef TestFunc(file_name):    pd_id = <span class="string">&quot;129393&quot;</span>  <span class="comment"># 用户中心页可以查询到pd信息    pd_key = &quot;fe2DLWIF4f/QJ2uVGb/3cW3w4+3OAfZl&quot;    app_id = &quot;329393&quot;  # 开发者分成用的账号，在开发者中心可以查询到    app_key = &quot;o7JQVbeIN0wyrERcfybl9iJ96vK7KW6v&quot;    # 识别类型，    # 具体类型可以查看官方网站的价格页选择具体的类型，不清楚类型的，可以咨询客服    pred_type = &quot;30400&quot;    api = fateadm_api.FateadmApi(app_id, app_key, pd_id, pd_key)    # 查询余额    balance = api.QueryBalcExtend()  # 直接返余额    # api.QueryBalc()    # 通过文件形式识别：    # 多网站类型时，需要增加src_url参数，具体请参考api文档: http://docs.fateadm.com/web/#/1?page_id=6    # result =  api.PredictFromFileExtend(pred_type,file_name)   # 直接返回识别结果    rsp = api.PredictFromFile(pred_type, file_name)  # 返回详细识别结果    &#x27;&#x27;&#x27;    # 如果不是通过文件识别，则调用Predict接口：    # result         = api.PredictExtend(pred_type,data)    # 直接返回识别结果    rsp             = api.Predict(pred_type,data)           # 返回详细的识别结果    &#x27;&#x27;&#x27;    just_flag = False    if just_flag:        if rsp.ret_code == 0:            # 识别的结果如果与预期不符，可以调用这个接口将预期不符的订单退款            # 退款仅在正常识别出结果后，无法通过网站验证的情况，请勿非法或者滥用，否则可能进行封号处理            api.Justice(rsp.request_id)    # card_id         = &quot;123&quot;    # card_key        = &quot;123&quot;    # 充值    # api.Charge(card_id, card_key)if __name__ == &#x27;__main__&#x27;:    headers = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;    &#125;    url = &#x27;https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx&#x27;    page_text = requests.get(url=url, headers=headers).text    tree = etree.HTML(page_text)    code_img_src = &quot;https://so.gushiwen.cn&quot; + tree.xpath(&#x27;//*[@id=&quot;imgCode&quot;]/@src&#x27;)[0]    img_data = requests.get(url=code_img_src, headers=headers).content    with open(&#x27;./code.jpg&#x27;, &#x27;wb&#x27;) as fp:        fp.write(img_data)    TestFunc(&#x27;code.jpg&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="第四天"><a href="#第四天" class="headerlink" title="第四天"></a>第四天</h3><p>验证码自动识别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8import os, sysimport hashlibimport timeimport jsonimport requestsFATEA_PRED_URL = &quot;http://pred.fateadm.com&quot;def LOG(log):    # 不需要测试时，注释掉日志就可以了    print(log)    log = Noneclass TmpObj():    def __init__(self):        self.value = Noneclass Rsp():    def __init__(self):        self.ret_code = -1        self.cust_val = 0.0        self.err_msg = &quot;succ&quot;        self.pred_rsp = TmpObj()    def ParseJsonRsp(self, rsp_data):        if rsp_data is None:            self.err_msg = &quot;http request failed, get rsp Nil data&quot;            return        jrsp = json.loads(rsp_data)        self.ret_code = int(jrsp[&quot;RetCode&quot;])        self.err_msg = jrsp[&quot;ErrMsg&quot;]        self.request_id = jrsp[&quot;RequestId&quot;]        if self.ret_code == 0:            rslt_data = jrsp[&quot;RspData&quot;]            if rslt_data is not None and rslt_data != &quot;&quot;:                jrsp_ext = json.loads(rslt_data)                if &quot;cust_val&quot; in jrsp_ext:                    data = jrsp_ext[&quot;cust_val&quot;]                    self.cust_val = float(data)                if &quot;result&quot; in jrsp_ext:                    data = jrsp_ext[&quot;result&quot;]                    self.pred_rsp.value = datadef CalcSign(pd_id, passwd, timestamp):    md5 = hashlib.md5()    md5.update((timestamp + passwd).encode())    csign = md5.hexdigest()    md5 = hashlib.md5()    md5.update((pd_id + timestamp + csign).encode())    csign = md5.hexdigest()    return csigndef CalcCardSign(cardid, cardkey, timestamp, passwd):    md5 = hashlib.md5()    md5.update(passwd + timestamp + cardid + cardkey)    return md5.hexdigest()def HttpRequest(url, body_data, img_data=&quot;&quot;):    rsp = Rsp()    post_data = body_data    files = &#123;        &#x27;img_data&#x27;: (&#x27;img_data&#x27;, img_data)    &#125;    header = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0&#x27;,    &#125;    rsp_data = requests.post(url, post_data, files=files, headers=header)    rsp.ParseJsonRsp(rsp_data.text)    return rspclass FateadmApi():    # API接口调用类    # 参数（appID，appKey，pdID，pdKey）    def __init__(self, app_id, app_key, pd_id, pd_key):        self.app_id = app_id        if app_id is None:            self.app_id = &quot;&quot;        self.app_key = app_key        self.pd_id = pd_id        self.pd_key = pd_key        self.host = FATEA_PRED_URL    def SetHost(self, url):        self.host = url    #    # 查询余额    # 参数：无    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.cust_val：用户余额    #   rsp.err_msg：异常时返回异常详情    #    def QueryBalc(self):        tm = str(int(time.time()))        sign = CalcSign(self.pd_id, self.pd_key, tm)        param = &#123;            &quot;user_id&quot;: self.pd_id,            &quot;timestamp&quot;: tm,            &quot;sign&quot;: sign        &#125;        url = self.host + &quot;/api/custval&quot;        rsp = HttpRequest(url, param)        if rsp.ret_code == 0:            LOG(&quot;query succ ret: &#123;&#125; cust_val: &#123;&#125; rsp: &#123;&#125; pred: &#123;&#125;&quot;.format(rsp.ret_code, rsp.cust_val, rsp.err_msg,                                                                          rsp.pred_rsp.value))        else:            LOG(&quot;query failed ret: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.err_msg.encode(&#x27;utf-8&#x27;)))        return rsp    #    # 查询网络延迟    # 参数：pred_type:识别类型    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.err_msg： 异常时返回异常详情    #    def QueryTTS(self, pred_type):        tm = str(int(time.time()))        sign = CalcSign(self.pd_id, self.pd_key, tm)        param = &#123;            &quot;user_id&quot;: self.pd_id,            &quot;timestamp&quot;: tm,            &quot;sign&quot;: sign,            &quot;predict_type&quot;: pred_type,        &#125;        if self.app_id != &quot;&quot;:            #            asign = CalcSign(self.app_id, self.app_key, tm)            param[&quot;appid&quot;] = self.app_id            param[&quot;asign&quot;] = asign        url = self.host + &quot;/api/qcrtt&quot;        rsp = HttpRequest(url, param)        if rsp.ret_code == 0:            LOG(&quot;query rtt succ ret: &#123;&#125; request_id: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.request_id, rsp.err_msg))        else:            LOG(&quot;predict failed ret: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.err_msg.encode(&#x27;utf-8&#x27;)))        return rsp    #    # 识别验证码    # 参数：pred_type:识别类型  img_data:图片的数据    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.request_id：唯一订单号    #   rsp.pred_rsp.value：识别结果    #   rsp.err_msg：异常时返回异常详情    #    def Predict(self, pred_type, img_data, head_info=&quot;&quot;):        tm = str(int(time.time()))        sign = CalcSign(self.pd_id, self.pd_key, tm)        param = &#123;            &quot;user_id&quot;: self.pd_id,            &quot;timestamp&quot;: tm,            &quot;sign&quot;: sign,            &quot;predict_type&quot;: pred_type,            &quot;up_type&quot;: &quot;mt&quot;        &#125;        if head_info is not None or head_info != &quot;&quot;:            param[&quot;head_info&quot;] = head_info        if self.app_id != &quot;&quot;:            #            asign = CalcSign(self.app_id, self.app_key, tm)            param[&quot;appid&quot;] = self.app_id            param[&quot;asign&quot;] = asign        url = self.host + &quot;/api/capreg&quot;        files = img_data        rsp = HttpRequest(url, param, files)        if rsp.ret_code == 0:            LOG(&quot;predict succ ret: &#123;&#125; request_id: &#123;&#125; pred: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.request_id,                                                                              rsp.pred_rsp.value, rsp.err_msg))        else:            LOG(&quot;predict failed ret: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.err_msg))            if rsp.ret_code == 4003:                # lack of money                LOG(&quot;cust_val &lt;= 0 lack of money, please charge immediately&quot;)        return rsp    #    # 从文件进行验证码识别    # 参数：pred_type;识别类型  file_name:文件名    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.request_id：唯一订单号    #   rsp.pred_rsp.value：识别结果    #   rsp.err_msg：异常时返回异常详情    #    def PredictFromFile(self, pred_type, file_name, head_info=&quot;&quot;):        with open(file_name, &quot;rb&quot;) as f:            data = f.read()        return self.Predict(pred_type, data, head_info=head_info)    #    # 识别失败，进行退款请求    # 参数：request_id：需要退款的订单号    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.err_msg：异常时返回异常详情    #    # 注意:    #    Predict识别接口，仅在ret_code == 0时才会进行扣款，才需要进行退款请求，否则无需进行退款操作    # 注意2:    #   退款仅在正常识别出结果后，无法通过网站验证的情况，请勿非法或者滥用，否则可能进行封号处理    #    def Justice(self, request_id):        if request_id == &quot;&quot;:            #            return        tm = str(int(time.time()))        sign = CalcSign(self.pd_id, self.pd_key, tm)        param = &#123;            &quot;user_id&quot;: self.pd_id,            &quot;timestamp&quot;: tm,            &quot;sign&quot;: sign,            &quot;request_id&quot;: request_id        &#125;        url = self.host + &quot;/api/capjust&quot;        rsp = HttpRequest(url, param)        if rsp.ret_code == 0:            LOG(&quot;justice succ ret: &#123;&#125; request_id: &#123;&#125; pred: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.request_id,                                                                              rsp.pred_rsp.value, rsp.err_msg))        else:            LOG(&quot;justice failed ret: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.err_msg.encode(&#x27;utf-8&#x27;)))        return rsp    #    # 充值接口    # 参数：cardid：充值卡号  cardkey：充值卡签名串    # 返回值：    #   rsp.ret_code：正常返回0    #   rsp.err_msg：异常时返回异常详情    #    def Charge(self, cardid, cardkey):        tm = str(int(time.time()))        sign = CalcSign(self.pd_id, self.pd_key, tm)        csign = CalcCardSign(cardid, cardkey, tm, self.pd_key)        param = &#123;            &quot;user_id&quot;: self.pd_id,            &quot;timestamp&quot;: tm,            &quot;sign&quot;: sign,            &#x27;cardid&#x27;: cardid,            &#x27;csign&#x27;: csign        &#125;        url = self.host + &quot;/api/charge&quot;        rsp = HttpRequest(url, param)        if rsp.ret_code == 0:            LOG(&quot;charge succ ret: &#123;&#125; request_id: &#123;&#125; pred: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.request_id,                                                                             rsp.pred_rsp.value, rsp.err_msg))        else:            LOG(&quot;charge failed ret: &#123;&#125; err: &#123;&#125;&quot;.format(rsp.ret_code, rsp.err_msg.encode(&#x27;utf-8&#x27;)))        return rsp    ##    # 充值，只返回是否成功    # 参数：cardid：充值卡号  cardkey：充值卡签名串    # 返回值： 充值成功时返回0    ##    def ExtendCharge(self, cardid, cardkey):        return self.Charge(cardid, cardkey).ret_code    ##    # 调用退款，只返回是否成功    # 参数： request_id：需要退款的订单号    # 返回值： 退款成功时返回0    #    # 注意:    #    Predict识别接口，仅在ret_code == 0时才会进行扣款，才需要进行退款请求，否则无需进行退款操作    # 注意2:    #   退款仅在正常识别出结果后，无法通过网站验证的情况，请勿非法或者滥用，否则可能进行封号处理    ##    def JusticeExtend(self, request_id):        return self.Justice(request_id).ret_code    ##    # 查询余额，只返回余额    # 参数：无    # 返回值：rsp.cust_val：余额    ##    def QueryBalcExtend(self):        rsp = self.QueryBalc()        return rsp.cust_val    ##    # 从文件识别验证码，只返回识别结果    # 参数：pred_type;识别类型  file_name:文件名    # 返回值： rsp.pred_rsp.value：识别的结果    ##    def PredictFromFileExtend(self, pred_type, file_name, head_info=&quot;&quot;):        rsp = self.PredictFromFile(pred_type, file_name, head_info)        return rsp.pred_rsp.value    ##    # 识别接口，只返回识别结果    # 参数：pred_type:识别类型  img_data:图片的数据    # 返回值： rsp.pred_rsp.value：识别的结果    ##    def PredictExtend(self, pred_type, img_data, head_info=&quot;&quot;):        rsp = self.Predict(pred_type, img_data, head_info)        return rsp.pred_rsp.valuedef TestFunc():    pd_id = &quot;100000&quot;  # 用户中心页可以查询到pd信息    pd_key = &quot;123456&quot;    app_id = &quot;100001&quot;  # 开发者分成用的账号，在开发者中心可以查询到    app_key = &quot;123456&quot;    # 识别类型，    # 具体类型可以查看官方网站的价格页选择具体的类型，不清楚类型的，可以咨询客服    pred_type = &quot;30400&quot;    api = FateadmApi(app_id, app_key, pd_id, pd_key)    # 查询余额    balance = api.QueryBalcExtend()  # 直接返余额    # api.QueryBalc()    # 通过文件形式识别：    file_name = &quot;img.jpg&quot;    # 多网站类型时，需要增加src_url参数，具体请参考api文档: http://docs.fateadm.com/web/#/1?page_id=6    # result =  api.PredictFromFileExtend(pred_type,file_name)   # 直接返回识别结果    rsp = api.PredictFromFile(pred_type, file_name)  # 返回详细识别结果    &#x27;&#x27;&#x27;    # 如果不是通过文件识别，则调用Predict接口：    # result 			= api.PredictExtend(pred_type,data)   	# 直接返回识别结果    rsp             = api.Predict(pred_type,data)				# 返回详细的识别结果    &#x27;&#x27;&#x27;    just_flag = False    if just_flag:        if rsp.ret_code == 0:            # 识别的结果如果与预期不符，可以调用这个接口将预期不符的订单退款            # 退款仅在正常识别出结果后，无法通过网站验证的情况，请勿非法或者滥用，否则可能进行封号处理            api.Justice(rsp.request_id)    # card_id         = &quot;123&quot;    # card_key        = &quot;123&quot;    # 充值    # api.Charge(card_id, card_key)    LOG(&quot;print in testfunc&quot;)if __name__ == &quot;__main__&quot;:    TestFunc()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>验证码自动识别（测试）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport fateadm_apifrom lxml <span class="keyword">import</span> etreedef TestFunc(file_name):    pd_id = <span class="string">&quot;129393&quot;</span>  <span class="comment"># 用户中心页可以查询到pd信息    pd_key = &quot;fe2DLWIF4f/QJ2uVGb/3cW3w4+3OAfZl&quot;    app_id = &quot;329393&quot;  # 开发者分成用的账号，在开发者中心可以查询到    app_key = &quot;o7JQVbeIN0wyrERcfybl9iJ96vK7KW6v&quot;    # 识别类型，    # 具体类型可以查看官方网站的价格页选择具体的类型，不清楚类型的，可以咨询客服    pred_type = &quot;30400&quot;    api = fateadm_api.FateadmApi(app_id, app_key, pd_id, pd_key)    # 查询余额    balance = api.QueryBalcExtend()  # 直接返余额    # api.QueryBalc()    # 通过文件形式识别：    # 多网站类型时，需要增加src_url参数，具体请参考api文档: http://docs.fateadm.com/web/#/1?page_id=6    # result =  api.PredictFromFileExtend(pred_type,file_name)   # 直接返回识别结果    rsp = api.PredictFromFile(pred_type, file_name)  # 返回详细识别结果    &#x27;&#x27;&#x27;    # 如果不是通过文件识别，则调用Predict接口：    # result         = api.PredictExtend(pred_type,data)    # 直接返回识别结果    rsp             = api.Predict(pred_type,data)           # 返回详细的识别结果    &#x27;&#x27;&#x27;    just_flag = False    if just_flag:        if rsp.ret_code == 0:            # 识别的结果如果与预期不符，可以调用这个接口将预期不符的订单退款            # 退款仅在正常识别出结果后，无法通过网站验证的情况，请勿非法或者滥用，否则可能进行封号处理            api.Justice(rsp.request_id)    # card_id         = &quot;123&quot;    # card_key        = &quot;123&quot;    # 充值    # api.Charge(card_id, card_key)if __name__ == &#x27;__main__&#x27;:    headers = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;    &#125;    url = &#x27;https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx&#x27;    page_text = requests.get(url=url, headers=headers).text    tree = etree.HTML(page_text)    code_img_src = &quot;https://so.gushiwen.cn&quot; + tree.xpath(&#x27;//*[@id=&quot;imgCode&quot;]/@src&#x27;)[0]    img_data = requests.get(url=code_img_src, headers=headers).content    with open(&#x27;./code.jpg&#x27;, &#x27;wb&#x27;) as fp:        fp.write(img_data)    TestFunc(&#x27;code.jpg&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第五天-异步爬虫"><a href="#第五天-异步爬虫" class="headerlink" title="第五天(异步爬虫)"></a>第五天(异步爬虫)</h3><p>梨视频爬取（未完成）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsfrom lxml <span class="keyword">import</span> etreeheaders = &#123;    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36&#x27;</span>&#125;url = <span class="string">&#x27;https://www.pearvideo.com/category_5&#x27;</span>page_text = requests.get(url=url, headers=headers).texttree = etree.HTML(page_text)li_list = etree.xpath(<span class="string">&#x27;//ul[@id=&quot;listvideoListUl&quot;]/li&#x27;</span>)<span class="keyword">for</span> li <span class="keyword">in</span> li_list:    detail_url = <span class="string">&#x27;https://www.pearvideo.com/&#x27;</span> + li.xpath(<span class="string">&#x27;./div/a/@href&#x27;</span>)[<span class="number">0</span>]    name = li.xpath(<span class="string">&#x27;./div/a/div[2]/text()&#x27;</span>)[<span class="number">0</span>]    <span class="built_in">print</span>(detail_url, name)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>协程初步</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">consume</span>():</span>    <span class="keyword">while</span> <span class="literal">True</span>:        <span class="comment"># consumer协程等待接收数据        number = yield        print(&#x27;开始消费&#x27;, number)consumer = consume()# 让初始化状态的consumer协程先执行起来，在yield处停止next(consumer)for num in range(0, 100):    print(&#x27;开始生产&#x27;, num)    # 发送数据给consumer处理    consumer.send(num)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>协程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncioimport timeasync <span class="function"><span class="keyword">def</span> <span class="title">request</span>(<span class="params">url</span>):</span>    <span class="built_in">print</span>(<span class="string">&#x27;正在下载&#x27;</span>, url)    <span class="comment"># 在异步协程中如果出现了同步模块相关的代码，那么就无法实现异步    # time.sleep(2)    # 当在asyncio中遇到阻塞操作时必须进行手动挂起    await asyncio.sleep(2)    print(&#x27;下载完毕&#x27;, url)start = time.time()urls = &#123;    &#x27;www.baidu.com&#x27;,    &#x27;www.sogou.com&#x27;,    &#x27;www.goubanjia.com&#x27;&#125;# 任务列表: 存放多个任务对象stacks = []for url in urls:    c = request(url)    task = asyncio.ensure_future(c)    stacks.append(task)loop = asyncio.get_event_loop()# 需要将任务列表封装到wait中loop.run_until_complete(asyncio.wait(stacks))print(time.time()-start)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport asyncioimport timeimport aiohttpstart = time.time()urls = [    <span class="string">&#x27;...&#x27;</span>, <span class="string">&#x27;...&#x27;</span>]<span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">get_page</span>(<span class="params">url</span>):</span>    <span class="keyword">async</span> <span class="keyword">with</span> aiohttp.ClientSession() <span class="keyword">as</span> session:        <span class="keyword">async</span> <span class="keyword">with</span> <span class="keyword">await</span> session.get(url) <span class="keyword">as</span> response:            <span class="comment"># text()返回字符串形式的响应数据            # read()返回的二进制形式的响应数据            # json()返回的就是json对象            # 注意：获取响应数据操作之前一定要使用await进行手动挂起            page_text = await response.text()            print(page_text)tasks = []for url in urls:    c = get_page(url)    task = asyncio.ensure_future(c)    tasks.append(task)loop = asyncio.get_event_loop()loop.run_until_complete(asyncio.wait(tasks))end = time.time()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="第六天"><a href="#第六天" class="headerlink" title="第六天"></a>第六天</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriverfrom lxml <span class="keyword">import</span> etreefrom time <span class="keyword">import</span> sleep<span class="comment"># 实例化一个浏览器对象（传入浏览器的驱动成）bro = webdriver.Chrome(executable_path=&#x27;./chromedriver&#x27;)# 让浏览器发起一个指定url对应请求bro.get(&#x27;http://scxk.nmpa.gov.cn:81/xk/&#x27;)# 获取浏览器当前页面的页面源码数据page_text = bro.page_source# 解析企业名称tree = etree.HTML(page_text)li_list = tree.xpath(&#x27;//ul[@id=&quot;gzlist&quot;]/li&#x27;)for li in li_list:    name = li.xpath(&#x27;./dl/@title&#x27;)[0]    print(name)sleep(5)bro.quit()</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriverfrom time <span class="keyword">import</span> sleepbro = webdriver.Chrome(executable_path=<span class="string">&#x27;./chromedriver.exe&#x27;</span>)<span class="comment"># 指定标签search_input = bro.find_element_by_id(&#x27;q&#x27;)# 标签交互search_input.send_keys(&#x27;Iphone&#x27;)# 执行一组js程序bro.execute_script(&#x27;window.scrollTo(0,document.body.scrollHeight)&#x27;)# 点击搜索按钮btn = bro.find_element_by_css_selector(&#x27;.btn-search&#x27;)btn.click()bro.get(&#x27;https://www.baidu.com&#x27;)sleep(2)# 回退bro.back()sleep(2)# 前进bro.foward()sleep(5)bro.quit()</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="第七天（scrapy）"><a href="#第七天（scrapy）" class="headerlink" title="第七天（scrapy）"></a>第七天（scrapy）</h3><p>终端操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider spiderName www.xxx.comscrapy crawl spiderNamescrapy crawl spiderName -o filePath</span><br></pre></td></tr></table></figure>
+
+
+
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+    <!-- 使用 DISQUS -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2021/05/09/%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+<script type="text/ls-javascript" id="disqus-thread-script">
+    queue.offer(function() {
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document;
+                var s = d.createElement('script');
+                s.src = '//.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', + new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        });
+</script>
+
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2021/05/09/JAVA%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2021/05/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.png" alt="Acow337's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        yzjin2001@qq.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2021/05/">五月 2021<span class="sidebar_archives-count">5</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/JUC/">JUC<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/categories/mysql/">mysql<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/redis/">redis<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/categories/%E7%88%AC%E8%99%AB/">爬虫<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">5</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/Acow337" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+
+    <!-- V2EX -->
+    
+
+    <!-- Segmentfault -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;Acow337的个人博客
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+
+
+   <!-- 使用 DISQUS js 代码 -->
+<script id="dsq-count-scr" src="//.disqus.com/count.js" async></script>
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('
+<link rel="stylesheet" href="/css/uc.css">
+');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    var copyrightNow = new Date().getFullYear();
+    var textContent = document.querySelector('span[year]')
+
+    copyrightSince = 0000;
+    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
+        textContent.textContent = copyrightNow
+    } else {
+        textContent.textContent = copyrightSince + ' - ' + copyrightNow
+    }
+
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>
