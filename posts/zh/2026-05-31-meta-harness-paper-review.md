@@ -82,9 +82,9 @@ Meta-Harness 强调让 proposer 能看更完整的执行证据（代码 + 原始
 
 可写成一个多目标优化：
 
-\[
+$$
 \max_{h \in \mathcal{H}} \ J(h)= S(h)-\lambda C(h)
-\]
+$$
 
 其中 \(\lambda\) 是“效果-成本权衡”系数。
 
@@ -92,15 +92,15 @@ Meta-Harness 强调让 proposer 能看更完整的执行证据（代码 + 原始
 
 第 \(t\) 轮维护历史池 \(\mathcal{B}_t\)（代码 + 分数 + trace），由 proposer 生成新候选：
 
-\[
+$$
 h_{t+1} \sim q_\phi\big(h\mid \mathcal{B}_t\big)
-\]
+$$
 
 评测后写回历史：
 
-\[
+$$
 \mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1})\}
-\]
+$$
 
 其中 \(\tau_{t+1}\) 是执行轨迹。
 
@@ -108,9 +108,9 @@ h_{t+1} \sim q_\phi\big(h\mid \mathcal{B}_t\big)
 
 很多场景不该把成本硬压成单一 \(\lambda\)。可维护 Pareto 前沿：
 
-\[
+$$
 \mathcal{P}=\{h\mid \nexists h'\!: S(h')\ge S(h),\ C(h')\le C(h),\ \text{且至少一项严格更优}\}
-\]
+$$
 
 上线时按业务 SLO（时延/成本/准确率）从 \(\mathcal{P}\) 里选版本。
 
@@ -208,9 +208,9 @@ Agent 系统链路长、错误传播复杂，仅靠人工看少量日志很难�
 
 工程上可以把目标写成：
 
-\[
+$$
 J_{prod}(h)= S(h)-\lambda C(h)-\mu R(h)
-\]
+$$
 
 其中 \(R(h)\) 是风险分（安全/合规/稳定性罚项），\(\mu\) 是风险权重。这样 human-in-the-loop 能直接在目标函数层面介入，而不只是事后拍板。
 

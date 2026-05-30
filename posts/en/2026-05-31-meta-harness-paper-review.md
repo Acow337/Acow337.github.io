@@ -80,9 +80,9 @@ Let harness code be $h \in \mathcal{H}$, task score on validation set $\mathcal{
 
 A practical multi-objective proxy is:
 
-\[
+$$
 \max_{h \in \mathcal{H}} \ J(h)= S(h)-\lambda C(h)
-\]
+$$
 
 where $\lambda$ controls quality-cost tradeoff.
 
@@ -90,15 +90,15 @@ where $\lambda$ controls quality-cost tradeoff.
 
 At round $t$, maintain a history buffer $\mathcal{B}_t$ (code + score + traces). The proposer samples a new candidate:
 
-\[
+$$
 h_{t+1} \sim q_\phiig(h\mid \mathcal{B}_tig)
-\]
+$$
 
 After evaluation, append results:
 
-\[
+$$
 \mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},	au_{t+1})\}
-\]
+$$
 
 where $	au_{t+1}$ is the execution trace.
 
@@ -106,10 +106,10 @@ where $	au_{t+1}$ is the execution trace.
 
 Instead of collapsing everything into one $\lambda$, maintain a Pareto frontier:
 
-\[
+$$
 \mathcal{P}=\{h\mid 
 exists h'\!: S(h')\ge S(h),\ C(h')\le C(h),\ 	ext{with at least one strict improvement}\}
-\]
+$$
 
 Then select deployment candidates under concrete product SLO constraints.
 
@@ -201,9 +201,9 @@ Looking only at aggregate score is insufficient.
 
 A practical objective can be written as:
 
-\[
+$$
 J_{prod}(h)= S(h)-\lambda C(h)-\mu R(h)
-\]
+$$
 
 where $R(h)$ is risk score and $\mu$ is risk weight.
 
