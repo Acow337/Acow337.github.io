@@ -24,20 +24,17 @@ tags: TagA, TagB
 正文内容...
 ```
 
-### 2) 更新文章清单
+### 2) 自动生成文章清单
 
-把新文件路径加入 `posts/manifest.json`（JSON 数组）。
+运行：
 
-示例：
-
-```json
-[
-  "posts/2026-06-01-my-post.md",
-  "posts/2026-05-30-agent-harness.md"
-]
+```bash
+python3 scripts/generate_manifest.py
 ```
 
-> 注意：路径必须正确，否则首页会加载失败。
+脚本会自动扫描 `posts/*.md`，按 `date` 倒序生成 `posts/manifest.json`。
+
+> 注意：front matter 里建议填写标准日期（如 `2026-06-01`），否则会被排到最后。
 
 首页点击文章后会跳转到 `post.html?file=...`，在网页内渲染 Markdown 正文。
 
@@ -77,6 +74,7 @@ git push origin gh-pages
 ## 常见问题
 
 ### Q1: 首页提示“文章加载失败”
+- 先运行 `python3 scripts/generate_manifest.py`
 - 检查 `posts/manifest.json` 是否是合法 JSON
 - 检查路径与文件名是否一致（含大小写）
 

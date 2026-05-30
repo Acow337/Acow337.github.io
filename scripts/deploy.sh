@@ -7,6 +7,9 @@ if [[ "$branch" != "gh-pages" && "$branch" != "main" ]]; then
   echo "[warn] 当前分支是 $branch。建议在 gh-pages 或 main 分支部署。"
 fi
 
+echo "[info] generating posts/manifest.json ..."
+python3 scripts/generate_manifest.py
+
 msg="deploy: update site $(date '+%Y-%m-%d %H:%M:%S')"
 
 git add -A

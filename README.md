@@ -28,7 +28,8 @@ http://localhost:8080
 │   ├── manifest.json        # Markdown 文件清单
 │   └── *.md                 # 文章文件（带 front matter）
 ├── scripts
-│   └── deploy.sh            # 一键部署脚本
+│   ├── deploy.sh            # 一键部署脚本（会先自动生成 manifest）
+│   └── generate_manifest.py # 自动生成 posts/manifest.json
 └── .github
     └── workflows
         └── deploy-pages.yml # GitHub Actions 自动部署
@@ -66,8 +67,22 @@ tags: HarnessEngineering, Evaluation
 
 1. 在 `posts/` 新建一个 `.md` 文件
 2. 按上面的 front matter 填写元数据
-3. 把文件路径加到 `posts/manifest.json`
+3. 运行自动生成脚本更新清单：
+
+```bash
+python3 scripts/generate_manifest.py
+```
+
 4. 提交并部署
+
+
+### 自动生成 manifest
+
+```bash
+python3 scripts/generate_manifest.py
+```
+
+脚本会扫描 `posts/*.md`，按 front matter 的 `date` 倒序生成 `posts/manifest.json`。
 
 ## 深色模式
 
