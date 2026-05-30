@@ -170,3 +170,23 @@ python3 scripts/generate_manifest.py
 3. `git push origin gh-pages`
 
 即：**改动 + 部署 + GitHub 仓库同步** 必须在同一轮完成。
+
+## 新博客多语言与公式规范（必做）
+
+每次新增博客后，必须同步完成以下步骤：
+
+1. **自动转换到其它语言**
+   - 至少保证 `zh` 与 `en` 双语版本同步。
+   - 新文先落在 `posts/zh/*.md`，再生成 `posts/en/*.md` 对应翻译版本。
+   - 后续新增语言（如 `ja`）时，也按同样规则补齐 `posts/<lang>/*.md`。
+
+2. **公式统一为 LaTeX 表达**
+   - 行内公式必须使用：`$...$`
+   - 块级公式必须使用：`$$...$$`
+   - 禁止使用伪公式或普通文本替代（例如 `a/b` 直接裸写在正文中表达公式关系）。
+   - 禁止把需要渲染的公式放在代码块中。
+
+3. **发布前校验**
+   - 逐语言页面检查公式是否正确渲染。
+   - 运行 `python3 scripts/generate_manifest.py`，确认多语言 manifest 已更新。
+   - 完成提交并 `git push origin gh-pages`。
