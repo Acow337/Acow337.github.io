@@ -91,24 +91,23 @@ where $\lambda$ controls quality-cost tradeoff.
 At round $t$, maintain a history buffer $\mathcal{B}_t$ (code + score + traces). The proposer samples a new candidate:
 
 $$
-h_{t+1} \sim q_\phiig(h\mid \mathcal{B}_tig)
+h_{t+1} \sim q_\phi\big(h\mid \mathcal{B}_t\big)
 $$
 
 After evaluation, append results:
 
 $$
-\mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},	au_{t+1})\}
+\mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1})\}
 $$
 
-where $	au_{t+1}$ is the execution trace.
+where $\tau_{t+1}$ is the execution trace.
 
 ### 4.3 Pareto perspective (recommended in production)
 
 Instead of collapsing everything into one $\lambda$, maintain a Pareto frontier:
 
 $$
-\mathcal{P}=\{h\mid 
-exists h'\!: S(h')\ge S(h),\ C(h')\le C(h),\ 	ext{with at least one strict improvement}\}
+\mathcal{P}=\{h\mid \nexists h'\!: S(h')\ge S(h),\ C(h')\le C(h),\ \text{with at least one strict improvement}\}
 $$
 
 Then select deployment candidates under concrete product SLO constraints.

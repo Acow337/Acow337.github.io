@@ -1,8 +1,8 @@
 ---
-title: Meta-Harness 论文解读：把 LLM 系统优化从调 Prompt 推进到调 Harness 代码。
+title: Meta-Harness 论文解读：把 LLM 系统优化从调 Prompt 推进到调 Harness 代码
 date: 2026-05-31
 readingTime: 14 min
-summary: Meta-Harness 论文解读：把 LLM 系统优化从调 Prompt 推进到调 Harness 代码。
+summary: Meta-Harness 论文解读：把 LLM 系统优化从调 Prompt 推进到调 Harness 代码
 tags: PaperReview, HarnessEngineering, LLMSystems
 ---
 
@@ -78,7 +78,7 @@ Meta-Harness 强调让 proposer 能看更完整的执行证据（代码 + 原始
 
 ### 4.1 Harness 搜索目标
 
-把 harness 代码记作 \(h \in \mathcal{H}\)，在验证集 \(\mathcal{D}_{val}\) 上的任务得分为 \(S(h)\)，token 成本为 \(C(h)\)。
+把 harness 代码记作 $h \in \mathcal{H}$，在验证集 $\mathcal{D}_{val}$ 上的任务得分为 $S(h)$，token 成本为 $C(h)$。
 
 可写成一个多目标优化：
 
@@ -86,11 +86,11 @@ $$
 \max_{h \in \mathcal{H}} \ J(h)= S(h)-\lambda C(h)
 $$
 
-其中 \(\lambda\) 是“效果-成本权衡”系数。
+其中 $\lambda$ 是“效果-成本权衡”系数。
 
 ### 4.2 外循环更新
 
-第 \(t\) 轮维护历史池 \(\mathcal{B}_t\)（代码 + 分数 + trace），由 proposer 生成新候选：
+第 $t$ 轮维护历史池 $\mathcal{B}_t$（代码 + 分数 + trace），由 proposer 生成新候选：
 
 $$
 h_{t+1} \sim q_\phi\big(h\mid \mathcal{B}_t\big)
@@ -102,17 +102,17 @@ $$
 \mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1})\}
 $$
 
-其中 \(\tau_{t+1}\) 是执行轨迹。
+其中 $\tau_{t+1}$ 是执行轨迹。
 
 ### 4.3 Pareto 视角（推荐在业务里采用）
 
-很多场景不该把成本硬压成单一 \(\lambda\)。可维护 Pareto 前沿：
+很多场景不该把成本硬压成单一 $\lambda$。可维护 Pareto 前沿：
 
 $$
 \mathcal{P}=\{h\mid \nexists h'\!: S(h')\ge S(h),\ C(h')\le C(h),\ \text{且至少一项严格更优}\}
 $$
 
-上线时按业务 SLO（时延/成本/准确率）从 \(\mathcal{P}\) 里选版本。
+上线时按业务 SLO（时延/成本/准确率）从 $\mathcal{P}$ 里选版本。
 
 ---
 
@@ -212,7 +212,7 @@ $$
 J_{prod}(h)= S(h)-\lambda C(h)-\mu R(h)
 $$
 
-其中 \(R(h)\) 是风险分（安全/合规/稳定性罚项），\(\mu\) 是风险权重。这样 human-in-the-loop 能直接在目标函数层面介入，而不只是事后拍板。
+其中 $R(h)$ 是风险分（安全/合规/稳定性罚项），$\mu$ 是风险权重。这样 human-in-the-loop 能直接在目标函数层面介入，而不只是事后拍板。
 
 ---
 
