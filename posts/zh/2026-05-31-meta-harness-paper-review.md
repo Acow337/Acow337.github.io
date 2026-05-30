@@ -99,7 +99,7 @@ $$
 评测后写回历史：
 
 $$
-\mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1})\}
+\mathcal{B}_{t+1}=\mathcal{B}_{t}\cup\left\{\left(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1}\right)\right\}
 $$
 
 其中 $\tau_{t+1}$ 是执行轨迹。
@@ -248,4 +248,3 @@ $$
   https://yoonholee.com/meta-harness/
 - Code (GitHub)  
   https://github.com/stanford-iris-lab/meta-harness
-

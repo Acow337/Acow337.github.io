@@ -97,7 +97,7 @@ $$
 After evaluation, append results:
 
 $$
-\mathcal{B}_{t+1}=\mathcal{B}_t\cup\{(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1})\}
+\mathcal{B}_{t+1}=\mathcal{B}_{t}\cup\left\{\left(h_{t+1},S_{t+1},C_{t+1},\tau_{t+1}\right)\right\}
 $$
 
 where $\tau_{t+1}$ is the execution trace.
