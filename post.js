@@ -16,14 +16,6 @@
       .replaceAll("'", '&#039;');
   }
 
-  function applyInlineMd(text) {
-    return escapeHtml(text)
-      .replace(/`([^`]+)`/g, '<code>$1</code>')
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-  }
-
   function parseFrontMatter(mdText) {
     var match = mdText.match(/^---\n([\s\S]*?)\n---\n?/);
     if (!match) return { meta: {}, content: mdText };
@@ -38,71 +30,6 @@
     });
 
     return { meta: meta, content: mdText.slice(match[0].length) };
-  }
-
-  function renderMarkdown(mdText) {
-    var lines = mdText.replace(/\r\n/g, '\n').split('\n');
-    var html = [];
-    var inCode = false;
-    var codeLang = '';
-    var inList = false;
-
-    function closeList() {
-      if (inList) {
-        html.push('</ul>');
-        inList = false;
-      }
-    }
-
-    lines.forEach(function (line) {
-      if (line.startsWith('```')) {
-        if (!inCode) {
-          closeList();
-          inCode = true;
-          codeLang = line.slice(3).trim();
-          html.push('<pre><code' + (codeLang ? ' class="lang-' + escapeHtml(codeLang) + '"' : '') + '>');
-        } else {
-          inCode = false;
-          html.push('</code></pre>');
-        }
-        return;
-      }
-
-      if (inCode) {
-        html.push(escapeHtml(line) + '\n');
-        return;
-      }
-
-      if (!line.trim()) {
-        closeList();
-        html.push('');
-        return;
-      }
-
-      var heading = line.match(/^(#{1,6})\s+(.*)$/);
-      if (heading) {
-        closeList();
-        var level = heading[1].length;
-        html.push('<h' + level + '>' + applyInlineMd(heading[2]) + '</h' + level + '>');
-        return;
-      }
-
-      var item = line.match(/^[-*]\s+(.*)$/);
-      if (item) {
-        if (!inList) {
-          html.push('<ul>');
-          inList = true;
-        }
-        html.push('<li>' + applyInlineMd(item[1]) + '</li>');
-        return;
-      }
-
-      closeList();
-      html.push('<p>' + applyInlineMd(line) + '</p>');
-    });
-
-    closeList();
-    return html.join('\n');
   }
 
   function applyTheme(theme) {
@@ -132,6 +59,74 @@
     return tagStr.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
   }
 
+  function renderMarkdownToHtml(markdown) {
+    if (window.marked) {
+      window.marked.setOptions({
+        gfm: true,
+        breaks: false,
+      });
+      return window.marked.parse(markdown || '');
+    }
+
+    // Fallback (very basic)
+    return '<p>' + escapeHtml(markdown || '').replace(/\n/g, '<br/>') + '</p>';
+  }
+
+  function sanitizeHtml(html) {
+    if (window.DOMPurify) return window.DOMPurify.sanitize(html);
+    return html;
+  }
+
+  function enhanceCodeBlocks() {
+    postPage.querySelectorAll('pre code').forEach(function (block) {
+      if (window.hljs) window.hljs.highlightElement(block);
+
+      var pre = block.parentElement;
+      if (!pre || pre.classList.contains('enhanced')) return;
+      pre.classList.add('enhanced');
+
+      var className = block.className || '';
+      var langMatch = className.match(/language-([\w-]+)/i) || className.match(/lang-([\w-]+)/i);
+      var lang = langMatch ? langMatch[1] : 'text';
+
+      var toolbar = document.createElement('div');
+      toolbar.className = 'code-toolbar';
+      toolbar.innerHTML = '<span class="code-lang">' + escapeHtml(lang) + '</span><button class="copy-btn" type="button">复制</button>';
+
+      pre.parentNode.insertBefore(toolbar, pre);
+
+      var copyBtn = toolbar.querySelector('.copy-btn');
+      copyBtn.addEventListener('click', async function () {
+        try {
+          await navigator.clipboard.writeText(block.innerText);
+          copyBtn.textContent = '已复制';
+          setTimeout(function () {
+            copyBtn.textContent = '复制';
+          }, 1200);
+        } catch (_) {
+          copyBtn.textContent = '复制失败';
+          setTimeout(function () {
+            copyBtn.textContent = '复制';
+          }, 1200);
+        }
+      });
+    });
+  }
+
+  function renderMath() {
+    if (window.renderMathInElement) {
+      window.renderMathInElement(postPage, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
   async function loadPost() {
     if (!postPage) return;
     var params = new URLSearchParams(window.location.search);
@@ -151,7 +146,8 @@
         return '<span>#' + escapeHtml(tag) + '</span>';
       }).join('');
 
-      var bodyHtml = renderMarkdown(parsed.content || '');
+      var rawHtml = renderMarkdownToHtml(parsed.content || '');
+      var safeHtml = sanitizeHtml(rawHtml);
       document.title = (parsed.meta.title || '文章') + ' · ruka';
 
       postPage.innerHTML = [
@@ -161,8 +157,11 @@
         (parsed.meta.summary ? '  <p class="post-summary">' + escapeHtml(parsed.meta.summary) + '</p>' : ''),
         (tags ? '  <div class="tags">' + tags + '</div>' : ''),
         '</header>',
-        '<section class="post-content">' + bodyHtml + '</section>'
+        '<section class="post-content">' + safeHtml + '</section>'
       ].join('\n');
+
+      enhanceCodeBlocks();
+      renderMath();
     } catch (e) {
       postPage.innerHTML = '<p class="post-loading">文章加载失败，请检查链接或文件是否存在。</p>';
       console.error(e);

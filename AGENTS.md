@@ -90,3 +90,10 @@ git remote set-url origin git@github.com:Acow337/Acow337.github.io.git
 - 仓库 Settings → Pages 检查 Source
 - 如使用分支部署，确保是 `gh-pages / root`
 - 如使用 Actions，检查 workflow 是否成功
+
+
+## 文章页能力
+
+- 全页面阅读布局（更宽阅读区）
+- 公式渲染（KaTeX，支持 `$...$` 与 `$$...$$`）
+- 代码块高亮 + 语言标签 + 一键复制

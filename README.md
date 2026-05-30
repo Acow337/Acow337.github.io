@@ -113,3 +113,10 @@ bash scripts/deploy.sh
 1. 推送代码到仓库
 2. 在 GitHub 仓库设置中启用 Pages（Source 选 **GitHub Actions**）
 3. 每次 push 到 `main` 或 `gh-pages` 时自动发布
+
+
+## 文章页能力
+
+- 全页面阅读布局（更宽阅读区）
+- 公式渲染（KaTeX，支持 `$...$` 与 `$$...$$`）
+- 代码块高亮 + 语言标签 + 一键复制
