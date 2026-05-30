@@ -9,6 +9,13 @@
   var themeStorageKey = 'ruka-theme';
   var pageSize = 6;
 
+  function detectLang() {
+    return window.location.pathname.startsWith('/en/') ? 'en' : 'zh';
+  }
+
+  var lang = detectLang();
+  var isEn = lang === 'en';
+
   function escapeHtml(text) {
     return String(text || '')
       .replaceAll('&', '&amp;')
@@ -21,7 +28,7 @@
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     if (themeIcon) themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
-    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? (isEn ? 'Switch to light mode' : '切换到浅色模式') : (isEn ? 'Switch to dark mode' : '切换到深色模式'));
   }
 
   function getPreferredTheme() {
@@ -35,7 +42,7 @@
     nav.classList.remove('nav-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.textContent = '☰';
-    menuToggle.setAttribute('aria-label', '打开导航');
+    menuToggle.setAttribute('aria-label', isEn ? 'Open menu' : '打开导航');
   }
 
   function parseFrontMatter(mdText) {
@@ -68,20 +75,21 @@
 
   function updatePageInQuery(page) {
     var url = new URL(window.location.href);
-    if (page <= 1) {
-      url.searchParams.delete('page');
-    } else {
-      url.searchParams.set('page', String(page));
-    }
+    if (page <= 1) url.searchParams.delete('page');
+    else url.searchParams.set('page', String(page));
     window.history.replaceState({}, '', url.toString());
+  }
+
+  function postUrl(filePath) {
+    return (isEn ? '/en/post.html' : 'post.html') + '?file=' + encodeURIComponent(filePath);
   }
 
   function renderPosts(posts) {
     if (!postListEl) return;
     postListEl.innerHTML = posts.map(function (post) {
-      var title = escapeHtml(post.title || '未命名文章');
-      var summary = escapeHtml(post.summary || '暂无摘要');
-      var date = escapeHtml(post.date || '未知日期');
+      var title = escapeHtml(post.title || (isEn ? 'Untitled Post' : '未命名文章'));
+      var summary = escapeHtml(post.summary || (isEn ? 'No summary' : '暂无摘要'));
+      var date = escapeHtml(post.date || (isEn ? 'Unknown date' : '未知日期'));
       var readingTime = escapeHtml(post.readingTime || '');
       var href = escapeHtml(post.href || '#');
       var tags = (post.tags || []).map(function (tag) { return '<span>#' + escapeHtml(tag) + '</span>'; }).join('');
@@ -103,22 +111,21 @@
       return;
     }
 
-    var parts = [];
-    parts.push('<button class="page-btn" ' + (currentPage === 1 ? 'disabled' : '') + ' data-page="' + (currentPage - 1) + '">上一页</button>');
+    var prevText = isEn ? 'Previous' : '上一页';
+    var nextText = isEn ? 'Next' : '下一页';
 
+    var parts = [];
+    parts.push('<button class="page-btn" ' + (currentPage === 1 ? 'disabled' : '') + ' data-page="' + (currentPage - 1) + '">' + prevText + '</button>');
     for (var p = 1; p <= totalPages; p++) {
       parts.push('<button class="page-btn ' + (p === currentPage ? 'active' : '') + '" data-page="' + p + '">' + p + '</button>');
     }
-
-    parts.push('<button class="page-btn" ' + (currentPage === totalPages ? 'disabled' : '') + ' data-page="' + (currentPage + 1) + '">下一页</button>');
+    parts.push('<button class="page-btn" ' + (currentPage === totalPages ? 'disabled' : '') + ' data-page="' + (currentPage + 1) + '">' + nextText + '</button>');
 
     paginationEl.innerHTML = parts.join('');
-
     paginationEl.querySelectorAll('button[data-page]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var next = Number(btn.getAttribute('data-page'));
-        if (!Number.isFinite(next)) return;
-        onPageChange(next);
+        if (Number.isFinite(next)) onPageChange(next);
       });
     });
   }
@@ -126,12 +133,14 @@
   async function loadAndRenderAllPosts() {
     if (!postListEl) return;
     try {
-      var manifestRes = await fetch('posts/manifest.json', { cache: 'no-cache' });
+      var manifestPath = '/posts/manifest.' + lang + '.json';
+      var manifestRes = await fetch(manifestPath, { cache: 'no-cache' });
       if (!manifestRes.ok) throw new Error('manifest load failed: ' + manifestRes.status);
       var mdFiles = await manifestRes.json();
 
       var allPosts = await Promise.all(mdFiles.map(async function (filePath) {
-        var res = await fetch(filePath, { cache: 'no-cache' });
+        var normalized = filePath.startsWith('/') ? filePath : '/' + filePath;
+        var res = await fetch(normalized, { cache: 'no-cache' });
         if (!res.ok) throw new Error('post load failed: ' + filePath);
         var text = await res.text();
         var parsed = parseFrontMatter(text);
@@ -141,7 +150,7 @@
           readingTime: parsed.meta.readingTime,
           summary: parsed.meta.summary,
           tags: normalizeTags(parsed.meta.tags),
-          href: 'post.html?file=' + encodeURIComponent(filePath)
+          href: postUrl((filePath.startsWith('/') ? filePath : '/' + filePath))
         };
       }));
 
@@ -152,7 +161,6 @@
         var safePage = Math.min(Math.max(page, 1), totalPages);
         var start = (safePage - 1) * pageSize;
         var pagePosts = allPosts.slice(start, start + pageSize);
-
         renderPosts(pagePosts);
         renderPagination(totalPages, safePage, goToPage);
         updatePageInQuery(safePage);
@@ -161,7 +169,7 @@
 
       goToPage(getPageFromQuery());
     } catch (error) {
-      postListEl.innerHTML = '<p class="post-loading">文章加载失败，请检查 posts/manifest.json 与 Markdown 文件路径。</p>';
+      postListEl.innerHTML = '<p class="post-loading">' + (isEn ? 'Failed to load posts. Check language manifests and markdown paths.' : '文章加载失败，请检查语言 manifest 与 Markdown 文件路径。') + '</p>';
       if (paginationEl) paginationEl.innerHTML = '';
       console.error(error);
     }
@@ -183,7 +191,7 @@
       var isOpen = nav.classList.toggle('nav-open');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.textContent = isOpen ? '✕' : '☰';
-      menuToggle.setAttribute('aria-label', isOpen ? '关闭导航' : '打开导航');
+      menuToggle.setAttribute('aria-label', isOpen ? (isEn ? 'Close menu' : '关闭导航') : (isEn ? 'Open menu' : '打开导航'));
     });
 
     nav.querySelectorAll('a').forEach(function (link) {

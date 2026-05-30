@@ -7,6 +7,14 @@
   var postListEl = document.getElementById('post-list');
   var themeStorageKey = 'ruka-theme';
 
+  function detectLang() {
+    if (window.location.pathname.startsWith('/en/')) return 'en';
+    return 'zh';
+  }
+
+  var lang = detectLang();
+  var isEn = lang === 'en';
+
   function escapeHtml(text) {
     return String(text || '')
       .replaceAll('&', '&amp;')
@@ -19,7 +27,7 @@
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     if (themeIcon) themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
-    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? (isEn ? 'Switch to light mode' : '切换到浅色模式') : (isEn ? 'Switch to dark mode' : '切换到深色模式'));
   }
 
   function getPreferredTheme() {
@@ -33,7 +41,7 @@
     nav.classList.remove('nav-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.textContent = '☰';
-    menuToggle.setAttribute('aria-label', '打开导航');
+    menuToggle.setAttribute('aria-label', isEn ? 'Open menu' : '打开导航');
   }
 
   function parseFrontMatter(mdText) {
@@ -54,12 +62,7 @@
 
   function normalizeTags(tagStr) {
     if (!tagStr) return [];
-    return tagStr
-      .split(',')
-      .map(function (tag) {
-        return tag.trim();
-      })
-      .filter(Boolean);
+    return tagStr.split(',').map(function (tag) { return tag.trim(); }).filter(Boolean);
   }
 
   function toSortableDate(dateText) {
@@ -67,73 +70,66 @@
     return Number.isNaN(time) ? 0 : time;
   }
 
+  function postUrl(filePath) {
+    return (isEn ? '/en/post.html' : 'post.html') + '?file=' + encodeURIComponent(filePath);
+  }
+
   function renderPosts(posts) {
     if (!postListEl) return;
 
     if (!posts.length) {
-      postListEl.innerHTML = '<p class="post-loading">暂无文章，请在 posts/ 目录添加 .md 文件。</p>';
+      postListEl.innerHTML = '<p class="post-loading">' + (isEn ? 'No posts yet. Add markdown files under posts/' + lang + '/.' : '暂无文章，请在 posts/' + lang + '/ 目录添加 .md 文件。') + '</p>';
       return;
     }
 
-    postListEl.innerHTML = posts
-      .map(function (post) {
-        var title = escapeHtml(post.title || '未命名文章');
-        var summary = escapeHtml(post.summary || '暂无摘要');
-        var date = escapeHtml(post.date || '未知日期');
-        var readingTime = escapeHtml(post.readingTime || '');
-        var href = escapeHtml(post.href || '#');
-        var tags = (post.tags || [])
-          .map(function (tag) {
-            return '<span>#' + escapeHtml(tag) + '</span>';
-          })
-          .join('');
+    postListEl.innerHTML = posts.map(function (post) {
+      var title = escapeHtml(post.title || (isEn ? 'Untitled Post' : '未命名文章'));
+      var summary = escapeHtml(post.summary || (isEn ? 'No summary' : '暂无摘要'));
+      var date = escapeHtml(post.date || (isEn ? 'Unknown date' : '未知日期'));
+      var readingTime = escapeHtml(post.readingTime || '');
+      var href = escapeHtml(post.href || '#');
+      var tags = (post.tags || []).map(function (tag) { return '<span>#' + escapeHtml(tag) + '</span>'; }).join('');
 
-        return [
-          '<article class="post-card">',
-          '  <p class="meta">' + date + (readingTime ? ' · ' + readingTime : '') + '</p>',
-          '  <h3><a class="post-link" href="' + href + '">' + title + '</a></h3>',
-          '  <p>' + summary + '</p>',
-          '  <div class="tags">' + tags + '</div>',
-          '</article>'
-        ].join('');
-      })
-      .join('');
+      return [
+        '<article class="post-card">',
+        '  <p class="meta">' + date + (readingTime ? ' · ' + readingTime : '') + '</p>',
+        '  <h3><a class="post-link" href="' + href + '">' + title + '</a></h3>',
+        '  <p>' + summary + '</p>',
+        '  <div class="tags">' + tags + '</div>',
+        '</article>'
+      ].join('');
+    }).join('');
   }
 
   async function loadPostsFromMarkdown() {
     if (!postListEl) return;
 
     try {
-      var manifestRes = await fetch('posts/manifest.json', { cache: 'no-cache' });
+      var manifestPath = '/posts/manifest.' + lang + '.json';
+      var manifestRes = await fetch(manifestPath, { cache: 'no-cache' });
       if (!manifestRes.ok) throw new Error('manifest load failed: ' + manifestRes.status);
       var mdFiles = await manifestRes.json();
 
-      var posts = await Promise.all(
-        mdFiles.map(async function (filePath) {
-          var res = await fetch(filePath, { cache: 'no-cache' });
-          if (!res.ok) throw new Error('post load failed: ' + filePath);
-          var text = await res.text();
-          var parsed = parseFrontMatter(text);
+      var posts = await Promise.all(mdFiles.map(async function (filePath) {
+        var normalized = filePath.startsWith('/') ? filePath : '/' + filePath;
+        var res = await fetch(normalized, { cache: 'no-cache' });
+        if (!res.ok) throw new Error('post load failed: ' + filePath);
+        var text = await res.text();
+        var parsed = parseFrontMatter(text);
+        return {
+          title: parsed.meta.title,
+          date: parsed.meta.date,
+          readingTime: parsed.meta.readingTime,
+          summary: parsed.meta.summary,
+          tags: normalizeTags(parsed.meta.tags),
+          href: postUrl((filePath.startsWith('/') ? filePath : '/' + filePath))
+        };
+      }));
 
-          return {
-            title: parsed.meta.title,
-            date: parsed.meta.date,
-            readingTime: parsed.meta.readingTime,
-            summary: parsed.meta.summary,
-            tags: normalizeTags(parsed.meta.tags),
-            href: 'post.html?file=' + encodeURIComponent(filePath)
-          };
-        })
-      );
-
-      posts.sort(function (a, b) {
-        return toSortableDate(b.date) - toSortableDate(a.date);
-      });
-
-      // homepage only shows latest top-3
+      posts.sort(function (a, b) { return toSortableDate(b.date) - toSortableDate(a.date); });
       renderPosts(posts.slice(0, 3));
     } catch (error) {
-      postListEl.innerHTML = '<p class="post-loading">文章加载失败，请检查 posts/manifest.json 与 Markdown 文件路径。</p>';
+      postListEl.innerHTML = '<p class="post-loading">' + (isEn ? 'Failed to load posts. Check language manifests and markdown paths.' : '文章加载失败，请检查语言 manifest 与 Markdown 文件路径。') + '</p>';
       console.error(error);
     }
   }
@@ -154,13 +150,11 @@
       var isOpen = nav.classList.toggle('nav-open');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.textContent = isOpen ? '✕' : '☰';
-      menuToggle.setAttribute('aria-label', isOpen ? '关闭导航' : '打开导航');
+      menuToggle.setAttribute('aria-label', isOpen ? (isEn ? 'Close menu' : '关闭导航') : (isEn ? 'Open menu' : '打开导航'));
     });
 
     nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeNav();
-      });
+      link.addEventListener('click', function () { closeNav(); });
     });
 
     document.addEventListener('click', function (event) {

@@ -141,3 +141,22 @@ environment:
 - [ ] 文章可直接给出“可执行的估算/实践步骤”
 - [ ] 运行 `python3 scripts/generate_manifest.py`
 - [ ] 本地预览无异常后再提交与发布
+
+
+## 多语言发布约定（必做）
+
+- 中文页面：`/`，英文页面：`/en/`
+- 文章目录按语言拆分：`posts/<lang>/*.md`
+- 发布前必须运行：
+
+```bash
+python3 scripts/generate_manifest.py
+```
+
+并确认 `posts/manifest.<lang>.json` 已更新。
+
+新增语言流程（例如 `ja`）：
+1. 增加 `ja/index.html`、`ja/blog.html`、`ja/post.html`
+2. 增加 `posts/ja/*.md`
+3. 运行 manifest 生成脚本
+4. 本地预览并发布

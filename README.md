@@ -123,3 +123,33 @@ bash scripts/deploy.sh
 
 
 - “查看全部”会跳转到 `blog.html`，展示完整文章列表并支持分页。
+
+
+## 多语言（i18n）结构
+
+当前已支持：
+- 中文站点：`/`（`index.html / blog.html / post.html`）
+- 英文站点：`/en/`（`en/index.html / en/blog.html / en/post.html`）
+
+文章按语言目录存放：
+- `posts/zh/*.md`
+- `posts/en/*.md`
+
+Manifest 自动生成：
+- `posts/manifest.zh.json`
+- `posts/manifest.en.json`
+
+### 新增语言（可扩展）
+
+以新增 `ja` 为例：
+
+1. 新建页面目录：`ja/index.html`、`ja/blog.html`、`ja/post.html`
+2. 新建文章目录：`posts/ja/`
+3. 写入对应语言文章 markdown
+4. 运行：
+
+```bash
+python3 scripts/generate_manifest.py
+```
+
+会自动生成 `posts/manifest.ja.json`，页面脚本会按路径语言读取对应 manifest。

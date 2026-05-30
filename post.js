@@ -7,6 +7,13 @@
   var postPage = document.getElementById('post-page');
   var themeStorageKey = 'ruka-theme';
 
+  function detectLang() {
+    return window.location.pathname.startsWith('/en/') ? 'en' : 'zh';
+  }
+
+  var lang = detectLang();
+  var isEn = lang === 'en';
+
   function escapeHtml(text) {
     return String(text || '')
       .replaceAll('&', '&amp;')
@@ -35,7 +42,7 @@
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     if (themeIcon) themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
-    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换到浅色模式' : '切换到深色模式');
+    if (themeToggle) themeToggle.setAttribute('aria-label', theme === 'dark' ? (isEn ? 'Switch to light mode' : '切换到浅色模式') : (isEn ? 'Switch to dark mode' : '切换到深色模式'));
   }
 
   function getPreferredTheme() {
@@ -49,17 +56,12 @@
     nav.classList.remove('nav-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.textContent = '☰';
-    menuToggle.setAttribute('aria-label', '打开导航');
+    menuToggle.setAttribute('aria-label', isEn ? 'Open menu' : '打开导航');
   }
 
   function normalizeTags(tagStr) {
     if (!tagStr) return [];
-    return tagStr
-      .split(',')
-      .map(function (t) {
-        return t.trim();
-      })
-      .filter(Boolean);
+    return tagStr.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
   }
 
   function fallbackMarkdownToHtml(markdown) {
@@ -71,14 +73,8 @@
     var inOl = false;
 
     function closeLists() {
-      if (inUl) {
-        out.push('</ul>');
-        inUl = false;
-      }
-      if (inOl) {
-        out.push('</ol>');
-        inOl = false;
-      }
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (inOl) { out.push('</ol>'); inOl = false; }
     }
 
     lines.forEach(function (line) {
@@ -116,22 +112,14 @@
 
       var ol = line.match(/^\d+\.\s+(.*)$/);
       if (ol) {
-        if (!inOl) {
-          closeLists();
-          inOl = true;
-          out.push('<ol>');
-        }
+        if (!inOl) { closeLists(); inOl = true; out.push('<ol>'); }
         out.push('<li>' + escapeHtml(ol[1]) + '</li>');
         return;
       }
 
       var ul = line.match(/^[-*]\s+(.*)$/);
       if (ul) {
-        if (!inUl) {
-          closeLists();
-          inUl = true;
-          out.push('<ul>');
-        }
+        if (!inUl) { closeLists(); inUl = true; out.push('<ul>'); }
         out.push('<li>' + escapeHtml(ul[1]) + '</li>');
         return;
       }
@@ -167,27 +155,22 @@
 
       var className = block.className || '';
       var langMatch = className.match(/language-([\w-]+)/i) || className.match(/lang-([\w-]+)/i);
-      var lang = langMatch ? langMatch[1] : 'text';
+      var langName = langMatch ? langMatch[1] : 'text';
 
       var toolbar = document.createElement('div');
       toolbar.className = 'code-toolbar';
-      toolbar.innerHTML = '<span class="code-lang">' + escapeHtml(lang) + '</span><button class="copy-btn" type="button">复制</button>';
-
+      toolbar.innerHTML = '<span class="code-lang">' + escapeHtml(langName) + '</span><button class="copy-btn" type="button">' + (isEn ? 'Copy' : '复制') + '</button>';
       pre.parentNode.insertBefore(toolbar, pre);
 
       var copyBtn = toolbar.querySelector('.copy-btn');
       copyBtn.addEventListener('click', async function () {
         try {
           await navigator.clipboard.writeText(block.innerText);
-          copyBtn.textContent = '已复制';
-          setTimeout(function () {
-            copyBtn.textContent = '复制';
-          }, 1200);
+          copyBtn.textContent = isEn ? 'Copied' : '已复制';
+          setTimeout(function () { copyBtn.textContent = isEn ? 'Copy' : '复制'; }, 1200);
         } catch (_) {
-          copyBtn.textContent = '复制失败';
-          setTimeout(function () {
-            copyBtn.textContent = '复制';
-          }, 1200);
+          copyBtn.textContent = isEn ? 'Failed' : '复制失败';
+          setTimeout(function () { copyBtn.textContent = isEn ? 'Copy' : '复制'; }, 1200);
         }
       });
     });
@@ -218,7 +201,9 @@
 
     var note = document.createElement('div');
     note.className = 'render-note';
-    note.textContent = '提示：部分渲染依赖未加载（' + missing.join(', ') + '），已启用兼容渲染。';
+    note.textContent = isEn
+      ? 'Note: Some rendering dependencies are not loaded (' + missing.join(', ') + '). Fallback rendering is enabled.'
+      : '提示：部分渲染依赖未加载（' + missing.join(', ') + '），已启用兼容渲染。';
     postPage.prepend(note);
   }
 
@@ -228,7 +213,7 @@
     var file = params.get('file');
 
     if (!file) {
-      postPage.innerHTML = '<p class="post-loading">未指定文章路径，请从首页文章列表进入。</p>';
+      postPage.innerHTML = '<p class="post-loading">' + (isEn ? 'No post file provided. Please open from blog list.' : '未指定文章路径，请从首页文章列表进入。') + '</p>';
       return;
     }
 
@@ -237,27 +222,24 @@
       if (!res.ok) throw new Error('load failed');
       var text = await res.text();
       var parsed = parseFrontMatter(text);
-      var tags = normalizeTags(parsed.meta.tags)
-        .map(function (tag) {
-          return '<span>#' + escapeHtml(tag) + '</span>';
-        })
-        .join('');
+      var tags = normalizeTags(parsed.meta.tags).map(function (tag) {
+        return '<span>#' + escapeHtml(tag) + '</span>';
+      }).join('');
 
       var rawHtml = renderMarkdownToHtml(parsed.content || '');
       var safeHtml = sanitizeHtml(rawHtml);
-      document.title = (parsed.meta.title || '文章') + ' · ruka';
+      document.title = (parsed.meta.title || (isEn ? 'Post' : '文章')) + ' · ruka';
 
       postPage.innerHTML = [
         '<header class="post-header">',
-        '  <h1>' + escapeHtml(parsed.meta.title || '未命名文章') + '</h1>',
-        '  <p class="meta">' + escapeHtml(parsed.meta.date || '未知日期') + (parsed.meta.readingTime ? ' · ' + escapeHtml(parsed.meta.readingTime) : '') + '</p>',
+        '  <h1>' + escapeHtml(parsed.meta.title || (isEn ? 'Untitled Post' : '未命名文章')) + '</h1>',
+        '  <p class="meta">' + escapeHtml(parsed.meta.date || (isEn ? 'Unknown date' : '未知日期')) + (parsed.meta.readingTime ? ' · ' + escapeHtml(parsed.meta.readingTime) : '') + '</p>',
         parsed.meta.summary ? '  <p class="post-summary">' + escapeHtml(parsed.meta.summary) + '</p>' : '',
         tags ? '  <div class="tags">' + tags + '</div>' : '',
         '</header>',
         '<section class="post-content">' + safeHtml + '</section>'
       ].join('\n');
 
-      // Option 1: keep only front matter title, remove first H1 inside markdown body to avoid duplicate title.
       var firstBodyH1 = postPage.querySelector('.post-content h1');
       if (firstBodyH1) firstBodyH1.remove();
 
@@ -265,7 +247,7 @@
       enhanceCodeBlocks();
       renderMath();
     } catch (e) {
-      postPage.innerHTML = '<p class="post-loading">文章加载失败，请检查链接或文件是否存在。</p>';
+      postPage.innerHTML = '<p class="post-loading">' + (isEn ? 'Failed to load post. Check file path and availability.' : '文章加载失败，请检查链接或文件是否存在。') + '</p>';
       console.error(e);
     }
   }
@@ -286,13 +268,11 @@
       var isOpen = nav.classList.toggle('nav-open');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
       menuToggle.textContent = isOpen ? '✕' : '☰';
-      menuToggle.setAttribute('aria-label', isOpen ? '关闭导航' : '打开导航');
+      menuToggle.setAttribute('aria-label', isOpen ? (isEn ? 'Close menu' : '关闭导航') : (isEn ? 'Open menu' : '打开导航'));
     });
 
     nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeNav();
-      });
+      link.addEventListener('click', function () { closeNav(); });
     });
 
     document.addEventListener('click', function (event) {

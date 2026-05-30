@@ -1,28 +1,28 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>全部文章 · ruka</title>
-    <meta name="description" content="ruka 博客完整文章列表" />
-    <link rel="stylesheet" href="style.css" />
+    <title>All Posts · ruka</title>
+    <meta name="description" content="Complete list of blog posts by ruka" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="logo" href="index.html">ruka</a>
+        <a class="logo" href="/en/">ruka</a>
 
         <div class="nav-right">
-          <button id="menu-toggle" class="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="site-nav">☰</button>
-          <nav id="site-nav" class="nav" aria-label="主导航">
-            <a href="index.html#about">关于</a>
-            <a href="blog.html">全部文章</a>
+          <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">☰</button>
+          <nav id="site-nav" class="nav" aria-label="Main navigation">
+            <a href="/en/#about">About</a>
+            <a href="/en/blog.html">Blog</a>
             <a href="https://github.com/Acow337" target="_blank" rel="noopener">GitHub</a>
             <a href="https://www.linkedin.com/in/yuzhou-jin-115396321/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="mailto:yzjin2001@qq.com">邮箱</a>
-            <a href="/en/blog.html">EN</a>
+            <a href="mailto:yzjin2001@qq.com">Email</a>
+            <a href="/blog.html">中文</a>
           </nav>
-          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换主题">
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">
             <span class="theme-icon" aria-hidden="true">☀️</span>
           </button>
         </div>
@@ -31,12 +31,12 @@
 
     <main class="container section">
       <div class="section-head">
-        <h1 class="list-title">全部文章</h1>
-        <a href="index.html" class="text-link">返回首页</a>
+        <h1 class="list-title">All Posts</h1>
+        <a href="/en/" class="text-link">Back home</a>
       </div>
 
       <div id="full-post-list" class="post-list" aria-live="polite">
-        <p class="post-loading">正在加载文章...</p>
+        <p class="post-loading">Loading posts...</p>
       </div>
 
       <div id="pagination" class="pagination"></div>
@@ -48,6 +48,6 @@
       </div>
     </footer>
 
-    <script src="blog.js"></script>
+    <script src="/blog.js"></script>
   </body>
 </html>

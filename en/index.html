@@ -1,33 +1,31 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="light">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ruka · 个人博客</title>
-    <meta name="description" content="ruka 的个人博客，记录 Harness Engineering 与 AI Agent 的学习与实践。" />
+    <title>ruka · Personal Blog</title>
+    <meta name="description" content="ruka's personal blog on Harness Engineering, AI Agents, and AI engineering." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body class="home-page">
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="logo" href="#">ruka</a>
+        <a class="logo" href="/en/">ruka</a>
 
         <div class="nav-right">
-          <button id="menu-toggle" class="menu-toggle" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="site-nav">
-            ☰
-          </button>
+          <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">☰</button>
 
-          <nav id="site-nav" class="nav" aria-label="主导航">
-            <a href="#about">关于</a>
-            <a href="blog.html">全部文章</a>
+          <nav id="site-nav" class="nav" aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="/en/blog.html">Blog</a>
             <a href="https://github.com/Acow337" target="_blank" rel="noopener">GitHub</a>
             <a href="https://www.linkedin.com/in/yuzhou-jin-115396321/" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="mailto:yzjin2001@qq.com">邮箱</a>
-            <a href="/en/">EN</a>
+            <a href="mailto:yzjin2001@qq.com">Email</a>
+            <a href="/index.html">中文</a>
           </nav>
 
-          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换主题">
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">
             <span class="theme-icon" aria-hidden="true">☀️</span>
           </button>
         </div>
@@ -38,19 +36,19 @@
       <section class="hero container">
         <h1>Hi, I'm ruka.</h1>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#posts">阅读文章</a>
-          <a class="btn btn-ghost" href="#about">关于我</a>
+          <a class="btn btn-primary" href="#posts">Read Blog</a>
+          <a class="btn btn-ghost" href="#about">About me</a>
         </div>
       </section>
 
       <section id="about" class="container section about">
-        <h2>关于我</h2>
-        <p>目前在字节跳动实习，做harness engineering相关的工作，正在学习AI工程化相关的内容</p>
-        <div class="social-icons" aria-label="联系方式">
+        <h2>About</h2>
+        <p>I'm currently an R&D intern at ByteDance, working on Harness Engineering and learning AI engineering in practice.</p>
+        <div class="social-icons" aria-label="Social links">
           <a href="https://github.com/Acow337" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
             <i class="fa-brands fa-github"></i>
           </a>
-          <a href="mailto:yzjin2001@qq.com" aria-label="邮箱" title="邮箱">
+          <a href="mailto:yzjin2001@qq.com" aria-label="Email" title="Email">
             <i class="fa-regular fa-envelope"></i>
           </a>
           <a href="https://www.linkedin.com/in/yuzhou-jin-115396321/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
@@ -61,25 +59,25 @@
 
       <section id="posts" class="container section">
         <div class="section-head">
-          <h2>博客</h2>
-          <a href="blog.html" class="text-link">查看全部</a>
+          <h2>Blog</h2>
+          <a href="/en/blog.html" class="text-link">View all</a>
         </div>
 
         <div id="post-list" class="post-list" aria-live="polite">
-          <p class="post-loading">正在从 Markdown 加载文章...</p>
+          <p class="post-loading">Loading markdown posts...</p>
         </div>
       </section>
 
       <section id="projects" class="container section">
-        <h2>关注方向</h2>
+        <h2>Focus Areas</h2>
         <ul class="focus-list">
           <li>
             <h3>Harness Engineering</h3>
-            <p>测试基建、评测流程、可观测性与稳定性工程实践。</p>
+            <p>Testing infrastructure, evaluation pipeline, observability, and reliability practices.</p>
           </li>
           <li>
             <h3>AI Agent</h3>
-            <p>任务编排、工具调用、评估与迭代优化。</p>
+            <p>Task orchestration, tool use, evaluation, and iterative optimization.</p>
           </li>
         </ul>
       </section>
@@ -91,6 +89,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>
