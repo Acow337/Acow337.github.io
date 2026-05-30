@@ -190,16 +190,121 @@
   }
 
   function renderMath() {
-    if (!window.renderMathInElement) return;
-    window.renderMathInElement(postPage, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-        { left: '\\(', right: '\\)', display: false },
-        { left: '\\[', right: '\\]', display: true }
-      ],
-      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-      throwOnError: false
+    if (window.renderMathInElement) {
+      window.renderMathInElement(postPage, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        throwOnError: false
+      });
+      return;
+    }
+
+    // Fallback when KaTeX auto-render is unavailable but katex core exists.
+    if (!window.katex) return;
+
+    function isEscaped(text, idx) {
+      var slashCount = 0;
+      for (var i = idx - 1; i >= 0 && text[i] === '\\'; i--) slashCount++;
+      return slashCount % 2 === 1;
+    }
+
+    function splitMath(text) {
+      var parts = [];
+      var i = 0;
+      while (i < text.length) {
+        var displayStart = text.indexOf('$$', i);
+        var inlineStart = text.indexOf('$', i);
+        var start = -1;
+        var isDisplay = false;
+
+        if (displayStart !== -1 && !isEscaped(text, displayStart)) {
+          start = displayStart;
+          isDisplay = true;
+        }
+        if (inlineStart !== -1 && !isEscaped(text, inlineStart)) {
+          if (start === -1 || inlineStart < start) {
+            start = inlineStart;
+            isDisplay = false;
+          }
+        }
+
+        if (start === -1) {
+          parts.push({ type: 'text', value: text.slice(i) });
+          break;
+        }
+
+        if (start > i) parts.push({ type: 'text', value: text.slice(i, start) });
+
+        var leftLen = isDisplay ? 2 : 1;
+        var end = -1;
+        var cursor = start + leftLen;
+        var right = isDisplay ? '$$' : '$';
+        while (cursor < text.length) {
+          var pos = text.indexOf(right, cursor);
+          if (pos === -1) break;
+          if (!isEscaped(text, pos)) {
+            end = pos;
+            break;
+          }
+          cursor = pos + right.length;
+        }
+
+        if (end === -1) {
+          parts.push({ type: 'text', value: text.slice(start) });
+          break;
+        }
+
+        parts.push({ type: 'math', value: text.slice(start + leftLen, end), display: isDisplay });
+        i = end + right.length;
+      }
+
+      return parts;
+    }
+
+    var walker = document.createTreeWalker(postPage, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (!node.nodeValue || node.nodeValue.indexOf('$') === -1) return NodeFilter.FILTER_REJECT;
+        var parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        var tag = parent.tagName && parent.tagName.toLowerCase();
+        if (['script', 'noscript', 'style', 'textarea', 'pre', 'code'].includes(tag)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach(function (node) {
+      var parts = splitMath(node.nodeValue);
+      if (!parts.some(function (p) { return p.type === 'math'; })) return;
+
+      var frag = document.createDocumentFragment();
+      parts.forEach(function (part) {
+        if (part.type === 'text') {
+          frag.appendChild(document.createTextNode(part.value));
+          return;
+        }
+
+        var holder = document.createElement(part.display ? 'div' : 'span');
+        if (part.display) holder.className = 'math-block-fallback';
+        try {
+          holder.innerHTML = window.katex.renderToString(part.value, {
+            displayMode: !!part.display,
+            throwOnError: false
+          });
+        } catch (_) {
+          holder.textContent = (part.display ? '$$' : '$') + part.value + (part.display ? '$$' : '$');
+        }
+        frag.appendChild(holder);
+      });
+
+      node.parentNode.replaceChild(frag, node);
     });
   }
 
