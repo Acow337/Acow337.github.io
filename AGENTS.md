@@ -115,3 +115,29 @@ environment:
 - 修复后可用 badge 快速确认：
   - `https://github.com/Acow337/Acow337.github.io/actions/workflows/deploy-pages.yml/badge.svg`
   - 标题应为 `Deploy Pages - passing`
+
+## 新文章发布前的内容优化标准（必做）
+
+每次新增文章（`posts/*.md`）后，发布前都必须按以下两类步骤优化：
+
+### 1) 公式优化（Markdown 可解析）
+
+- 全文改成标准 KaTeX 友好的写法：
+  - 行内公式：`$...$`
+  - 块级公式：`$$...$$`
+- 把核心估算关系统一成清晰公式（例如：`6NT`、`Time = 6NT/(GPη)`、内存拆分公式等）
+- 避免把公式写在代码块里（代码块中的公式不会被 KaTeX 渲染）
+
+### 2) 内容优化（可读性更强）
+
+- 结构重构为：**问题 → 公式 → 解释 → 落地流程 → TL;DR**
+- 增加章节层次与工程化结论
+- 去掉冗余叙述，保留关键结论与可直接套用的步骤
+
+### 3) 发布前检查清单
+
+- [ ] 公式在 `post.html` 中能正确渲染
+- [ ] 标题、摘要、日期、标签齐全（front matter 完整）
+- [ ] 文章可直接给出“可执行的估算/实践步骤”
+- [ ] 运行 `python3 scripts/generate_manifest.py`
+- [ ] 本地预览无异常后再提交与发布
