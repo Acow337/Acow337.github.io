@@ -140,6 +140,61 @@
     return fallbackMarkdownToHtml(markdown);
   }
 
+  function extractDisplayMathBlocks(markdown) {
+    var text = String(markdown || '');
+    var blocks = [];
+    var out = '';
+    var i = 0;
+
+    while (i < text.length) {
+      var start = text.indexOf('$$', i);
+      if (start === -1) {
+        out += text.slice(i);
+        break;
+      }
+
+      out += text.slice(i, start);
+      var end = text.indexOf('$$', start + 2);
+      if (end === -1) {
+        out += text.slice(start);
+        break;
+      }
+
+      var expr = text.slice(start + 2, end);
+      var token = 'KATEX_BLOCK_TOKEN_' + blocks.length;
+      blocks.push({ token: token, expr: expr });
+      out += '\n\n' + token + '\n\n';
+      i = end + 2;
+    }
+
+    return { markdown: out, blocks: blocks };
+  }
+
+  function renderDisplayMathTokens(html, blocks) {
+    var rendered = String(html || '');
+    (blocks || []).forEach(function (item) {
+      var expr = normalizeLatexForRendering(item.expr || '').trim();
+      var katexHtml = '';
+      if (window.katex) {
+        try {
+          katexHtml = '<div class="math-block-fallback">' + window.katex.renderToString(expr, {
+            displayMode: true,
+            throwOnError: false
+          }) + '</div>';
+        } catch (_) {
+          katexHtml = '<div class="math-block-fallback">$$' + escapeHtml(item.expr || '') + '$$</div>';
+        }
+      } else {
+        katexHtml = '<div class="math-block-fallback">$$' + escapeHtml(item.expr || '') + '$$</div>';
+      }
+
+      rendered = rendered
+        .replaceAll('<p>' + item.token + '</p>', katexHtml)
+        .replaceAll(item.token, katexHtml);
+    });
+    return rendered;
+  }
+
   function normalizeLatexForRendering(text) {
     var normalized = text || '';
     // Common malformed delimiters that break KaTeX parsing.
@@ -409,8 +464,10 @@
       }).join('');
 
       var normalizedMarkdown = normalizeLatexForRendering(parsed.content || '');
-      var rawHtml = renderMarkdownToHtml(normalizedMarkdown);
+      var extracted = extractDisplayMathBlocks(normalizedMarkdown);
+      var rawHtml = renderMarkdownToHtml(extracted.markdown);
       var safeHtml = sanitizeHtml(rawHtml);
+      var finalHtml = renderDisplayMathTokens(safeHtml, extracted.blocks);
       document.title = (parsed.meta.title || (isEn ? 'Post' : '文章')) + ' · ruka';
 
       postPage.innerHTML = [
@@ -420,7 +477,7 @@
         parsed.meta.summary ? '  <p class="post-summary">' + escapeHtml(parsed.meta.summary) + '</p>' : '',
         tags ? '  <div class="tags">' + tags + '</div>' : '',
         '</header>',
-        '<section class="post-content">' + safeHtml + '</section>'
+        '<section class="post-content">' + finalHtml + '</section>'
       ].join('\n');
 
       var firstBodyH1 = postPage.querySelector('.post-content h1');
