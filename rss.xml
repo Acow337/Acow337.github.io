@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ruka 的博客</title>
+    <link>https://acow337.github.io/</link>
+    <description>记录 Harness Engineering 与 AI Agent 的学习与实践。</description>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 30 May 2026 00:00:00 GMT</lastBuildDate>
+
+    <item>
+      <title>从零搭建一个可复用的 Agent Harness</title>
+      <link>https://acow337.github.io/#posts</link>
+      <guid>https://acow337.github.io/#post-agent-harness</guid>
+      <pubDate>Sat, 30 May 2026 00:00:00 GMT</pubDate>
+      <description>记录我对评测链路、实验复现和指标稳定性的第一版设计。</description>
+    </item>
+
+    <item>
+      <title>AI Agent 工具调用失败的常见模式</title>
+      <link>https://acow337.github.io/#posts</link>
+      <guid>https://acow337.github.io/#post-tool-use</guid>
+      <pubDate>Tue, 26 May 2026 00:00:00 GMT</pubDate>
+      <description>拆解任务规划、参数构造和环境依赖导致的失败原因与修复策略。</description>
+    </item>
+
+    <item>
+      <title>我的实习周记模板（工程版）</title>
+      <link>https://acow337.github.io/#posts</link>
+      <guid>https://acow337.github.io/#post-weekly</guid>
+      <pubDate>Wed, 20 May 2026 00:00:00 GMT</pubDate>
+      <description>一个轻量但高复用的周记结构：输入、过程、问题、复盘、下一步。</description>
+    </item>
+  </channel>
+</rss>
