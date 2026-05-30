@@ -160,3 +160,13 @@ python3 scripts/generate_manifest.py
 2. 增加 `posts/ja/*.md`
 3. 运行 manifest 生成脚本
 4. 本地预览并发布
+
+## 发布与仓库同步约定（必做）
+
+每次修改站点后，必须执行完整同步流程，不允许只做本地修改：
+
+1. `git add ...`
+2. `git commit -m "..."`
+3. `git push origin gh-pages`
+
+即：**改动 + 部署 + GitHub 仓库同步** 必须在同一轮完成。
