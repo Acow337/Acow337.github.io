@@ -630,3 +630,97 @@ h1 {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* ===== Wider layout refinement (Anthropic-inspired spacious layout) ===== */
+:root {
+  --site-max: 1240px;
+  --site-gutter: clamp(16px, 3vw, 44px);
+}
+
+.container {
+  width: min(var(--site-max), calc(100% - var(--site-gutter) * 2));
+}
+
+.hero {
+  padding: 128px 0 84px;
+}
+
+.hero h1,
+h1 {
+  font-size: clamp(40px, 6vw, 68px);
+  letter-spacing: -0.02em;
+}
+
+.section {
+  padding: 56px 0;
+}
+
+.about p {
+  max-width: 90ch;
+}
+
+/* Homepage latest posts: top-3 in wide screens */
+#post-list.post-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Full blog list page: denser two-column layout */
+#full-post-list.post-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Reading page becomes closer to full-width */
+.post-main.container {
+  width: calc(100% - max(16px, var(--site-gutter)) * 2);
+  max-width: 1680px;
+}
+
+.post-content {
+  font-size: 18px;
+  line-height: 1.82;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 1180px) {
+  #post-list.post-list,
+  #full-post-list.post-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    width: calc(100% - 24px);
+  }
+
+  .hero {
+    padding: 92px 0 58px;
+  }
+
+  #post-list.post-list,
+  #full-post-list.post-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .section {
+    padding: 36px 0;
+  }
+
+  .post-main.container {
+    width: calc(100% - 12px);
+    max-width: none;
+  }
+
+  .post-content {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+}
