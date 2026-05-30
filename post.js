@@ -140,6 +140,19 @@
     return fallbackMarkdownToHtml(markdown);
   }
 
+  function normalizeLatexForRendering(text) {
+    var normalized = text || '';
+    // Common malformed delimiters that break KaTeX parsing.
+    normalized = normalized
+      .replace(/\\left\s*\{/g, '\\left\\{')
+      .replace(/\\right\s*\}/g, '\\right\\}');
+
+    // Normalize patterns like \mathcal{B}{t+1} to \mathcal{B}_{t+1}.
+    normalized = normalized.replace(/\\mathcal\{([A-Za-z])\}\{([^{}]+)\}/g, '\\mathcal{$1}_{$2}');
+
+    return normalized;
+  }
+
   function sanitizeHtml(html) {
     if (window.DOMPurify) return window.DOMPurify.sanitize(html);
     return html;
@@ -226,7 +239,8 @@
         return '<span>#' + escapeHtml(tag) + '</span>';
       }).join('');
 
-      var rawHtml = renderMarkdownToHtml(parsed.content || '');
+      var normalizedMarkdown = normalizeLatexForRendering(parsed.content || '');
+      var rawHtml = renderMarkdownToHtml(normalizedMarkdown);
       var safeHtml = sanitizeHtml(rawHtml);
       document.title = (parsed.meta.title || (isEn ? 'Post' : '文章')) + ' · ruka';
 
