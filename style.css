@@ -733,7 +733,8 @@ h1 {
 }
 
 .home-page .container {
-  width: min(1400px, calc(100% - clamp(20px, 3.6vw, 56px) * 2));
+  width: calc(100% - clamp(16px, 2.2vw, 36px) * 2);
+  max-width: none;
 }
 
 .home-page .site-header {
@@ -844,7 +845,7 @@ h1 {
 
 @media (max-width: 760px) {
   .home-page .container {
-    width: calc(100% - 24px);
+    width: calc(100% - 18px);
   }
 
   .home-page .hero {
@@ -860,5 +861,16 @@ h1 {
     font-size: 26px;
     line-height: 1.2;
     max-width: 20ch;
+  }
+}
+
+
+@media (min-width: 1500px) {
+  .home-page #post-list.post-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-page .post-card {
+    min-height: 250px;
   }
 }
