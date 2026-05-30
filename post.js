@@ -146,7 +146,7 @@
 
   function renderMarkdownToHtml(markdown) {
     if (window.marked) {
-      window.marked.setOptions({ gfm: true, breaks: true, mangle: false, headerIds: false });
+      window.marked.setOptions({ gfm: true, breaks: false, mangle: false, headerIds: false });
       return window.marked.parse(markdown || '');
     }
     return fallbackMarkdownToHtml(markdown);
