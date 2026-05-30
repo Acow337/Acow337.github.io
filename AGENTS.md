@@ -100,3 +100,18 @@ git remote set-url origin git@github.com:Acow337/Acow337.github.io.git
 
 
 - “查看全部”会跳转到 `blog.html`，展示完整文章列表并支持分页。
+
+### Q4: GitHub Actions 部署报错 `Missing environment`
+- 现象：Actions 里 `Deploy to GitHub Pages` 失败，提示：`HttpError: Missing environment`
+- 原因：`.github/workflows/deploy-pages.yml` 的 `deploy` job 没有配置 `environment: github-pages`
+- 解决：在 `jobs.deploy` 下添加：
+
+```yaml
+environment:
+  name: github-pages
+  url: ${{ steps.deployment.outputs.page_url }}
+```
+
+- 修复后可用 badge 快速确认：
+  - `https://github.com/Acow337/Acow337.github.io/actions/workflows/deploy-pages.yml/badge.svg`
+  - 标题应为 `Deploy Pages - passing`
