@@ -874,3 +874,33 @@ h1 {
     min-height: 250px;
   }
 }
+
+/* About social icons */
+.social-icons {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-icons a {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  background: color-mix(in srgb, var(--card) 84%, #fff);
+  text-decoration: none;
+  transition: 0.18s ease;
+  font-size: 18px;
+}
+
+.social-icons a:hover {
+  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent);
+  transform: translateY(-1px);
+}
