@@ -412,7 +412,8 @@ h1 {
 }
 
 .post-main.container {
-  width: min(980px, calc(100% - 40px));
+  width: calc(100% - 24px);
+  max-width: 1440px;
 }
 
 .post-page {
@@ -438,7 +439,8 @@ h1 {
 
 .post-content {
   margin-top: 28px;
-  font-size: 17px;
+  font-size: 18px;
+  width: 100%;
 }
 
 .post-content h1,
@@ -571,10 +573,22 @@ h1 {
 
 @media (max-width: 760px) {
   .post-main.container {
-    width: min(980px, calc(100% - 28px));
+    width: calc(100% - 16px);
+    max-width: none;
   }
 
   .post-content {
     font-size: 16px;
   }
+}
+
+
+.render-note {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--card) 86%, var(--line));
+  color: var(--muted);
+  font-size: 14px;
 }

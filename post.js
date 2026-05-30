@@ -41,9 +41,7 @@
   function getPreferredTheme() {
     var saved = localStorage.getItem(themeStorageKey);
     if (saved === 'light' || saved === 'dark') return saved;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   function closeNav() {
@@ -56,20 +54,102 @@
 
   function normalizeTags(tagStr) {
     if (!tagStr) return [];
-    return tagStr.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+    return tagStr
+      .split(',')
+      .map(function (t) {
+        return t.trim();
+      })
+      .filter(Boolean);
+  }
+
+  function fallbackMarkdownToHtml(markdown) {
+    var lines = (markdown || '').replace(/\r\n/g, '\n').split('\n');
+    var out = [];
+    var inCode = false;
+    var codeLang = '';
+    var inUl = false;
+    var inOl = false;
+
+    function closeLists() {
+      if (inUl) {
+        out.push('</ul>');
+        inUl = false;
+      }
+      if (inOl) {
+        out.push('</ol>');
+        inOl = false;
+      }
+    }
+
+    lines.forEach(function (line) {
+      if (line.startsWith('```')) {
+        closeLists();
+        if (!inCode) {
+          inCode = true;
+          codeLang = line.slice(3).trim();
+          out.push('<pre><code class="language-' + escapeHtml(codeLang || 'text') + '">');
+        } else {
+          inCode = false;
+          out.push('</code></pre>');
+        }
+        return;
+      }
+
+      if (inCode) {
+        out.push(escapeHtml(line) + '\n');
+        return;
+      }
+
+      if (!line.trim()) {
+        closeLists();
+        out.push('');
+        return;
+      }
+
+      var h = line.match(/^(#{1,6})\s+(.*)$/);
+      if (h) {
+        closeLists();
+        var lv = h[1].length;
+        out.push('<h' + lv + '>' + escapeHtml(h[2]) + '</h' + lv + '>');
+        return;
+      }
+
+      var ol = line.match(/^\d+\.\s+(.*)$/);
+      if (ol) {
+        if (!inOl) {
+          closeLists();
+          inOl = true;
+          out.push('<ol>');
+        }
+        out.push('<li>' + escapeHtml(ol[1]) + '</li>');
+        return;
+      }
+
+      var ul = line.match(/^[-*]\s+(.*)$/);
+      if (ul) {
+        if (!inUl) {
+          closeLists();
+          inUl = true;
+          out.push('<ul>');
+        }
+        out.push('<li>' + escapeHtml(ul[1]) + '</li>');
+        return;
+      }
+
+      closeLists();
+      out.push('<p>' + escapeHtml(line) + '</p>');
+    });
+
+    closeLists();
+    return out.join('\n');
   }
 
   function renderMarkdownToHtml(markdown) {
     if (window.marked) {
-      window.marked.setOptions({
-        gfm: true,
-        breaks: false,
-      });
+      window.marked.setOptions({ gfm: true, breaks: true, mangle: false, headerIds: false });
       return window.marked.parse(markdown || '');
     }
-
-    // Fallback (very basic)
-    return '<p>' + escapeHtml(markdown || '').replace(/\n/g, '<br/>') + '</p>';
+    return fallbackMarkdownToHtml(markdown);
   }
 
   function sanitizeHtml(html) {
@@ -114,17 +194,32 @@
   }
 
   function renderMath() {
-    if (window.renderMathInElement) {
-      window.renderMathInElement(postPage, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true }
-        ],
-        throwOnError: false
-      });
-    }
+    if (!window.renderMathInElement) return;
+    window.renderMathInElement(postPage, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      throwOnError: false
+    });
+  }
+
+  function showDependencyNote() {
+    var missing = [];
+    if (!window.marked) missing.push('marked');
+    if (!window.DOMPurify) missing.push('DOMPurify');
+    if (!window.hljs) missing.push('highlight.js');
+    if (!window.renderMathInElement) missing.push('KaTeX auto-render');
+
+    if (!missing.length || !postPage) return;
+
+    var note = document.createElement('div');
+    note.className = 'render-note';
+    note.textContent = '提示：部分渲染依赖未加载（' + missing.join(', ') + '），已启用兼容渲染。';
+    postPage.prepend(note);
   }
 
   async function loadPost() {
@@ -142,9 +237,11 @@
       if (!res.ok) throw new Error('load failed');
       var text = await res.text();
       var parsed = parseFrontMatter(text);
-      var tags = normalizeTags(parsed.meta.tags).map(function (tag) {
-        return '<span>#' + escapeHtml(tag) + '</span>';
-      }).join('');
+      var tags = normalizeTags(parsed.meta.tags)
+        .map(function (tag) {
+          return '<span>#' + escapeHtml(tag) + '</span>';
+        })
+        .join('');
 
       var rawHtml = renderMarkdownToHtml(parsed.content || '');
       var safeHtml = sanitizeHtml(rawHtml);
@@ -154,12 +251,13 @@
         '<header class="post-header">',
         '  <h1>' + escapeHtml(parsed.meta.title || '未命名文章') + '</h1>',
         '  <p class="meta">' + escapeHtml(parsed.meta.date || '未知日期') + (parsed.meta.readingTime ? ' · ' + escapeHtml(parsed.meta.readingTime) : '') + '</p>',
-        (parsed.meta.summary ? '  <p class="post-summary">' + escapeHtml(parsed.meta.summary) + '</p>' : ''),
-        (tags ? '  <div class="tags">' + tags + '</div>' : ''),
+        parsed.meta.summary ? '  <p class="post-summary">' + escapeHtml(parsed.meta.summary) + '</p>' : '',
+        tags ? '  <div class="tags">' + tags + '</div>' : '',
         '</header>',
         '<section class="post-content">' + safeHtml + '</section>'
       ].join('\n');
 
+      showDependencyNote();
       enhanceCodeBlocks();
       renderMath();
     } catch (e) {
