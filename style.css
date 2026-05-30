@@ -9,13 +9,13 @@
 }
 
 html[data-theme="dark"] {
-  --bg: #0f1115;
-  --text: #eceff4;
-  --muted: #aeb6c3;
-  --line: #262b35;
-  --accent: #7c77ff;
-  --card: #151923;
-  --shadow: rgba(0, 0, 0, 0.35);
+  --bg: #1b1f27;
+  --text: #e9edf5;
+  --muted: #b3bccb;
+  --line: #353d4b;
+  --accent: #8f8bff;
+  --card: #242a35;
+  --shadow: rgba(0, 0, 0, 0.28);
 }
 
 * {
@@ -733,12 +733,12 @@ html[data-theme="light"] .home-page {
 }
 
 html[data-theme="dark"] .home-page {
-  --bg: #0f1115;
-  --card: #151923;
-  --line: #2a313d;
+  --bg: #1b1f27;
+  --card: #242a35;
+  --line: #3a4352;
   --text: #eceff4;
   --muted: #aeb6c3;
-  --accent: #8b86ff;
+  --accent: #9a96ff;
 }
 
 .home-page .container {
