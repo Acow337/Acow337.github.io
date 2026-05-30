@@ -726,10 +726,19 @@ h1 {
 }
 
 /* ===== Homepage refinement: more Anthropic-like spacious editorial feel ===== */
-.home-page {
+html[data-theme="light"] .home-page {
   --bg: #f7f4ee;
   --card: #fbf9f4;
   --line: #e7dfd4;
+}
+
+html[data-theme="dark"] .home-page {
+  --bg: #0f1115;
+  --card: #151923;
+  --line: #2a313d;
+  --text: #eceff4;
+  --muted: #aeb6c3;
+  --accent: #8b86ff;
 }
 
 .home-page .container {
@@ -928,4 +937,25 @@ h1 {
   background: #f2ede4;
   border-color: #b9ad9d;
   color: #2e3748;
+}
+
+html[data-theme="dark"] .home-page .hero-actions .btn-primary {
+  background: var(--accent);
+  color: #0f1115;
+  border-color: var(--accent);
+}
+
+html[data-theme="dark"] .home-page .hero-actions .btn-primary:hover {
+  filter: brightness(0.92);
+}
+
+html[data-theme="dark"] .home-page .hero-actions .btn-ghost {
+  color: var(--text);
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .home-page .hero-actions .btn-ghost:hover {
+  background: color-mix(in srgb, var(--card) 88%, var(--line));
+  border-color: var(--accent);
+  color: var(--accent);
 }
