@@ -455,7 +455,8 @@
     }
 
     try {
-      var res = await fetch(file, { cache: 'no-cache' });
+      var fileUrl = file + (file.indexOf('?') >= 0 ? '&' : '?') + 'v=20260531c';
+      var res = await fetch(fileUrl, { cache: 'reload' });
       if (!res.ok) throw new Error('load failed');
       var text = await res.text();
       var parsed = parseFrontMatter(text);
