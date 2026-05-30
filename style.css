@@ -753,7 +753,7 @@ h1 {
 .home-page .hero h1 {
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
   font-weight: 600;
-  font-size: clamp(48px, 8.2vw, 106px);
+  font-size: clamp(38px, 5.8vw, 72px);
   line-height: 0.98;
   letter-spacing: -0.03em;
 }
@@ -854,7 +854,7 @@ h1 {
   }
 
   .home-page .hero h1 {
-    font-size: clamp(42px, 14vw, 70px);
+    font-size: clamp(34px, 11vw, 56px);
   }
 
   .home-page .about p {
@@ -903,4 +903,29 @@ h1 {
   color: #fff;
   background: var(--accent);
   transform: translateY(-1px);
+}
+
+
+.home-page .hero-actions .btn-primary {
+  background: #2f3b52;
+  color: #f6f3ed;
+  border: 1px solid #2f3b52;
+}
+
+.home-page .hero-actions .btn-primary:hover {
+  background: #263146;
+  border-color: #263146;
+  filter: none;
+}
+
+.home-page .hero-actions .btn-ghost {
+  background: transparent;
+  color: #4a5568;
+  border: 1px solid #cfc5b8;
+}
+
+.home-page .hero-actions .btn-ghost:hover {
+  background: #f2ede4;
+  border-color: #b9ad9d;
+  color: #2e3748;
 }
