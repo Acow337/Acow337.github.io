@@ -257,6 +257,10 @@
         '<section class="post-content">' + safeHtml + '</section>'
       ].join('\n');
 
+      // Option 1: keep only front matter title, remove first H1 inside markdown body to avoid duplicate title.
+      var firstBodyH1 = postPage.querySelector('.post-content h1');
+      if (firstBodyH1) firstBodyH1.remove();
+
       showDependencyNote();
       enhanceCodeBlocks();
       renderMath();
