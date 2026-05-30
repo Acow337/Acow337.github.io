@@ -190,6 +190,67 @@
   }
 
   function renderMath() {
+    function normalizeMathExpr(expr) {
+      return String(expr || '')
+        .replace(/\\left\s*\{/g, '\\left\\{')
+        .replace(/\\right\s*\}/g, '\\right\\}')
+        .replace(/\\mathcal\{([A-Za-z])\}\{([^{}]+)\}/g, '\\mathcal{$1}_{$2}');
+    }
+
+    function renderRemainingDisplayMath() {
+      if (!window.katex) return;
+
+      var walker = document.createTreeWalker(postPage, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (node) {
+          if (!node.nodeValue || node.nodeValue.indexOf('$$') === -1) return NodeFilter.FILTER_REJECT;
+          var parent = node.parentElement;
+          if (!parent) return NodeFilter.FILTER_REJECT;
+          var tag = parent.tagName && parent.tagName.toLowerCase();
+          if (['script', 'noscript', 'style', 'textarea', 'pre', 'code'].includes(tag)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(function (node) {
+        var text = node.nodeValue;
+        if (!text || text.indexOf('$$') === -1) return;
+
+        var pattern = /\$\$([\s\S]+?)\$\$/g;
+        var last = 0;
+        var found = false;
+        var frag = document.createDocumentFragment();
+        var match;
+
+        while ((match = pattern.exec(text)) !== null) {
+          found = true;
+          if (match.index > last) {
+            frag.appendChild(document.createTextNode(text.slice(last, match.index)));
+          }
+
+          var holder = document.createElement('div');
+          holder.className = 'math-block-fallback';
+          var expr = normalizeMathExpr(match[1]).trim();
+          try {
+            holder.innerHTML = window.katex.renderToString(expr, {
+              displayMode: true,
+              throwOnError: false
+            });
+          } catch (_) {
+            holder.textContent = '$$' + match[1] + '$$';
+          }
+          frag.appendChild(holder);
+          last = pattern.lastIndex;
+        }
+
+        if (!found) return;
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      });
+    }
+
     if (window.renderMathInElement) {
       window.renderMathInElement(postPage, {
         delimiters: [
@@ -201,6 +262,7 @@
         ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
         throwOnError: false
       });
+      renderRemainingDisplayMath();
       return;
     }
 
@@ -306,6 +368,8 @@
 
       node.parentNode.replaceChild(frag, node);
     });
+
+    renderRemainingDisplayMath();
   }
 
   function showDependencyNote() {
