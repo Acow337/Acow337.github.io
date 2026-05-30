@@ -43,7 +43,7 @@ http://localhost:8080
 
 ## 文章来源：Markdown 文件
 
-首页“最新文章”会自动读取 `posts/manifest.json` 中列出的 `.md` 文件，并解析 front matter。
+首页“最新文章”会自动读取 `posts/manifest.json` 中列出的 `.md` 文件，并只展示最新 Top-3。
 
 点击首页文章标题会进入 `post.html`，并在网页中渲染 Markdown 内容（不是直接打开原始 .md 文件）。
 
@@ -120,3 +120,6 @@ bash scripts/deploy.sh
 - 全页面阅读布局（更宽阅读区）
 - 公式渲染（KaTeX，支持 `$...$` 与 `$$...$$`）
 - 代码块高亮 + 语言标签 + 一键复制
+
+
+- “查看全部”会跳转到 `blog.html`，展示完整文章列表并支持分页。

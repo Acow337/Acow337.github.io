@@ -25,9 +25,7 @@
   function getPreferredTheme() {
     var saved = localStorage.getItem(themeStorageKey);
     if (saved === 'light' || saved === 'dark') return saved;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 
   function closeNav() {
@@ -54,6 +52,21 @@
     return { meta: meta, content: mdText.slice(match[0].length) };
   }
 
+  function normalizeTags(tagStr) {
+    if (!tagStr) return [];
+    return tagStr
+      .split(',')
+      .map(function (tag) {
+        return tag.trim();
+      })
+      .filter(Boolean);
+  }
+
+  function toSortableDate(dateText) {
+    var time = Date.parse(dateText || '');
+    return Number.isNaN(time) ? 0 : time;
+  }
+
   function renderPosts(posts) {
     if (!postListEl) return;
 
@@ -78,28 +91,13 @@
         return [
           '<article class="post-card">',
           '  <p class="meta">' + date + (readingTime ? ' · ' + readingTime : '') + '</p>',
-          '  <h3><a class="post-link" href="' + href + '" target="_blank" rel="noopener">' + title + '</a></h3>',
+          '  <h3><a class="post-link" href="' + href + '">' + title + '</a></h3>',
           '  <p>' + summary + '</p>',
           '  <div class="tags">' + tags + '</div>',
           '</article>'
         ].join('');
       })
       .join('');
-  }
-
-  function normalizeTags(tagStr) {
-    if (!tagStr) return [];
-    return tagStr
-      .split(',')
-      .map(function (tag) {
-        return tag.trim();
-      })
-      .filter(Boolean);
-  }
-
-  function toSortableDate(dateText) {
-    var time = Date.parse(dateText || '');
-    return Number.isNaN(time) ? 0 : time;
   }
 
   async function loadPostsFromMarkdown() {
@@ -132,7 +130,8 @@
         return toSortableDate(b.date) - toSortableDate(a.date);
       });
 
-      renderPosts(posts);
+      // homepage only shows latest top-3
+      renderPosts(posts.slice(0, 3));
     } catch (error) {
       postListEl.innerHTML = '<p class="post-loading">文章加载失败，请检查 posts/manifest.json 与 Markdown 文件路径。</p>';
       console.error(error);
@@ -167,9 +166,7 @@
     document.addEventListener('click', function (event) {
       var clickedInsideMenu = nav.contains(event.target);
       var clickedToggle = menuToggle.contains(event.target);
-      if (!clickedInsideMenu && !clickedToggle) {
-        closeNav();
-      }
+      if (!clickedInsideMenu && !clickedToggle) closeNav();
     });
 
     window.addEventListener('resize', function () {

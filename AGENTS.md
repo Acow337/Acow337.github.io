@@ -97,3 +97,6 @@ git remote set-url origin git@github.com:Acow337/Acow337.github.io.git
 - 全页面阅读布局（更宽阅读区）
 - 公式渲染（KaTeX，支持 `$...$` 与 `$$...$$`）
 - 代码块高亮 + 语言标签 + 一键复制
+
+
+- “查看全部”会跳转到 `blog.html`，展示完整文章列表并支持分页。
