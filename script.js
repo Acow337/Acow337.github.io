@@ -123,7 +123,7 @@
             readingTime: parsed.meta.readingTime,
             summary: parsed.meta.summary,
             tags: normalizeTags(parsed.meta.tags),
-            href: filePath
+            href: 'post.html?file=' + encodeURIComponent(filePath)
           };
         })
       );

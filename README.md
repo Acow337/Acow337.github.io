@@ -44,6 +44,8 @@ http://localhost:8080
 
 首页“最新文章”会自动读取 `posts/manifest.json` 中列出的 `.md` 文件，并解析 front matter。
 
+点击首页文章标题会进入 `post.html`，并在网页中渲染 Markdown 内容（不是直接打开原始 .md 文件）。
+
 ### Markdown 格式示例
 
 ```md
